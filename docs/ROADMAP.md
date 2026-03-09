@@ -138,6 +138,23 @@ Each chunk is independently testable and deployable. Chunks are ordered by depen
 
 ---
 
+## Chunk 10: Vercel Deployment & Production Readiness ✅
+
+**Status:** Complete — Live at https://indifin.vercel.app
+
+| Story | Description |
+|-------|-------------|
+| US-10.1 | Deploy to Vercel — connect GitHub repo, configure build settings |
+| US-10.2 | Set environment variables on Vercel (Supabase URL/key, Gemini API key) |
+| US-10.3 | Add production URL to Supabase Auth redirect allowlist |
+| US-10.4 | Add production URL to Google OAuth authorized redirect URIs |
+| US-10.5 | Test full end-to-end flow on production (login → upload → parse → dashboard → compare → insights) |
+| US-10.6 | Share link with friends for testing |
+
+**Test:** Full flow works on production Vercel URL — Google login, PDF upload, AI parsing, dashboard, comparison, insights
+
+---
+
 ## Verification Checklist
 
 - [ ] Upload sample CAS PDFs and verify parsing accuracy
