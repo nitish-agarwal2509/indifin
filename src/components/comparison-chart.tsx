@@ -1,0 +1,82 @@
+"use client";
+
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
+} from "recharts";
+
+type DataPoint = { date: string; portfolio: number; nifty: number };
+
+function formatCurrency(n: number): string {
+  return new Intl.NumberFormat("en-IN", {
+    style: "currency",
+    currency: "INR",
+    maximumFractionDigits: 0,
+  }).format(n);
+}
+
+function formatDate(dateStr: string): string {
+  const d = new Date(dateStr);
+  return d.toLocaleDateString("en-IN", { month: "short", year: "2-digit" });
+}
+
+export function ComparisonChart({ data }: { data: DataPoint[] }) {
+  if (data.length === 0) {
+    return (
+      <p className="text-sm text-muted-foreground text-center py-8">
+        No comparison data available
+      </p>
+    );
+  }
+
+  return (
+    <ResponsiveContainer width="100%" height={400}>
+      <LineChart data={data}>
+        <CartesianGrid strokeDasharray="3 3" />
+        <XAxis
+          dataKey="date"
+          tickFormatter={formatDate}
+          tick={{ fontSize: 12 }}
+          interval="preserveStartEnd"
+        />
+        <YAxis
+          tickFormatter={(v) => `₹${(v / 100000).toFixed(1)}L`}
+          tick={{ fontSize: 12 }}
+          width={70}
+        />
+        <Tooltip
+          formatter={(value, name) => [
+            formatCurrency(Number(value)),
+            name === "portfolio" ? "Your Portfolio" : "Nifty 50 Equivalent",
+          ]}
+          labelFormatter={(label) => formatDate(String(label))}
+        />
+        <Legend
+          formatter={(value) =>
+            value === "portfolio" ? "Your Portfolio" : "Nifty 50 Equivalent"
+          }
+        />
+        <Line
+          type="monotone"
+          dataKey="portfolio"
+          stroke="#2563eb"
+          strokeWidth={2}
+          dot={false}
+        />
+        <Line
+          type="monotone"
+          dataKey="nifty"
+          stroke="#f97316"
+          strokeWidth={2}
+          dot={false}
+        />
+      </LineChart>
+    </ResponsiveContainer>
+  );
+}
