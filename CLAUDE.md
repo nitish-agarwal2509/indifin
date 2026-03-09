@@ -5,16 +5,16 @@
 IndiFin is an Indian personal finance web app that lets users upload their mutual fund CAS (Consolidated Account Statement) PDF, uses AI to parse it, and shows portfolio performance against the Nifty 50 index with AI-powered insights.
 
 - **Docs:** See `docs/PRD.md` for full product requirements, `docs/ROADMAP.md` for implementation chunks
-- **Current status:** Chunks 1-3 complete (setup + auth + PDF upload). See ROADMAP.md for progress.
+- **Current status:** Chunks 1-4 complete (setup + auth + PDF upload + AI parsing). See ROADMAP.md for progress.
 
 ## Tech Stack
 
 - **Framework:** Next.js 16 with App Router, TypeScript
 - **UI:** Tailwind CSS v4 + shadcn/ui (v4) + Lucide icons
 - **Database + Auth:** Supabase (free tier) — PostgreSQL + Google OAuth
-- **AI:** Google Gemini 1.5 Flash (free tier)
+- **AI:** Google Gemini 2.5 Flash Lite (free tier)
 - **Charts:** Recharts
-- **PDF Parsing:** pdfjs-dist (server-side text extraction)
+- **PDF Parsing:** unpdf (server-side text extraction)
 - **Deployment:** Vercel (free tier)
 
 ## Project Structure
@@ -33,6 +33,7 @@ src/
 │       ├── layout.tsx      # Dashboard shell (navbar + user avatar)
 │       ├── page.tsx        # Portfolio overview
 │       ├── upload/page.tsx # PDF upload flow
+│       ├── review/page.tsx # AI-parsed data review + confirm
 │       ├── compare/page.tsx# Portfolio vs Nifty 50
 │       └── insights/page.tsx # AI insights
 ├── components/
@@ -40,10 +41,13 @@ src/
 │   └── user-nav.tsx        # User avatar + logout (client component)
 ├── lib/
 │   ├── utils.ts            # cn() utility for className merging
-│   └── supabase/
-│       ├── client.ts       # Browser Supabase client
-│       ├── server.ts       # Server Supabase client (cookies-based)
-│       └── middleware.ts    # Auth session refresh + route protection
+│   ├── supabase/
+│   │   ├── client.ts       # Browser Supabase client
+│   │   ├── server.ts       # Server Supabase client (cookies-based)
+│   │   └── middleware.ts    # Auth session refresh + route protection
+│   ├── gemini.ts           # Gemini AI client initialization
+│   ├── cas-parser.ts       # CAS text → structured JSON via Gemini
+│   └── types.ts            # Shared TypeScript interfaces (ParsedCAS, etc.)
 ├── middleware.ts            # Next.js middleware (routes to supabase/middleware)
 docs/
 ├── PRD.md                  # Product requirements document
@@ -81,4 +85,4 @@ docs/
 - **AMFI NAV data:** `https://www.amfiindia.com/spages/NAVAll.txt` (daily NAV for all schemes)
 - **Historical NAV:** mfapi.in REST API (no auth, per-scheme historical data)
 - **Nifty 50:** Yahoo Finance `^NSEI` ticker
-- **AI:** Google Gemini 1.5 Flash via `@google/generative-ai` npm package
+- **AI:** Google Gemini 2.5 Flash Lite via `@google/generative-ai` npm package

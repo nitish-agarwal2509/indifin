@@ -49,13 +49,13 @@ Each chunk is independently testable and deployable. Chunks are ordered by depen
 
 ---
 
-## Chunk 4: AI Parsing (Gemini)
+## Chunk 4: AI Parsing (Gemini) ✅
 
-**Status:** Not started
+**Status:** Complete
 
 | Story | Description |
 |-------|-------------|
-| US-4.1 | Integrate Google Gemini 1.5 Flash API |
+| US-4.1 | Integrate Google Gemini 2.5 Flash Lite API |
 | US-4.2 | Build prompt to extract holdings + transactions from CAS text → structured JSON |
 | US-4.3 | Show parsed data (schemes, units, transactions) in a review table |
 | US-4.4 | User confirms → save parsed data to `schemes` + `transactions` tables |

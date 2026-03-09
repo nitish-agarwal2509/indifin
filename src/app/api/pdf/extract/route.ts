@@ -29,11 +29,9 @@ export async function POST(request: Request) {
       mergePages: true,
     });
 
-    const text = typeof result.text === "string"
-      ? result.text
-      : Array.isArray(result.text)
-        ? result.text.join("\n\n")
-        : String(result.text || "");
+    const text = Array.isArray(result.text)
+      ? result.text.join("\n\n")
+      : String(result.text || "");
 
     return NextResponse.json({
       text,

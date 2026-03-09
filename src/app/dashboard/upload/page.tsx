@@ -93,8 +93,9 @@ export default function UploadPage() {
         throw new Error(data.error || "Failed to save portfolio");
       }
 
+      const data = await res.json();
       setState("saved");
-      setTimeout(() => router.push("/dashboard"), 1500);
+      setTimeout(() => router.push(`/dashboard/review?id=${data.portfolio.id}`), 1000);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Failed to save");
       setState("error");
@@ -196,9 +197,9 @@ export default function UploadPage() {
       {state === "saved" && (
         <Card>
           <CardContent className="py-12 text-center">
-            <p className="text-lg font-medium text-green-600">Portfolio saved successfully!</p>
+            <p className="text-lg font-medium text-green-600">PDF saved successfully!</p>
             <p className="text-sm text-muted-foreground mt-2">
-              Redirecting to dashboard...
+              Redirecting to AI parsing...
             </p>
           </CardContent>
         </Card>
