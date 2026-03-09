@@ -5,7 +5,7 @@
 IndiFin is an Indian personal finance web app that lets users upload their mutual fund CAS (Consolidated Account Statement) PDF, uses AI to parse it, and shows portfolio performance against the Nifty 50 index with AI-powered insights.
 
 - **Docs:** See `docs/PRD.md` for full product requirements, `docs/ROADMAP.md` for implementation chunks
-- **Current status:** Chunks 1-7 complete (setup + auth + PDF upload + AI parsing + dashboard + XIRR + Nifty comparison). See ROADMAP.md for progress.
+- **Current status:** Chunks 1-8 complete (setup + auth + PDF upload + AI parsing + dashboard + XIRR + Nifty comparison + AI insights). See ROADMAP.md for progress.
 
 ## Tech Stack
 
