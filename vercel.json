@@ -1,13 +1,1 @@
-{
-  "functions": {
-    "src/app/api/pdf/extract/route.ts": {
-      "maxDuration": 30
-    },
-    "src/app/api/portfolio/parse/route.ts": {
-      "maxDuration": 60
-    },
-    "src/app/api/portfolio/insights/route.ts": {
-      "maxDuration": 60
-    }
-  }
-}
+{}

@@ -3,6 +3,8 @@ import { createClient } from "@/lib/supabase/server";
 import { geminiModel } from "@/lib/gemini";
 import { withRetry } from "@/lib/retry";
 
+export const maxDuration = 60;
+
 const INSIGHTS_PROMPT = `You are an Indian mutual fund portfolio advisor. Analyze the following portfolio data and provide actionable insights.
 
 Return ONLY a valid JSON array (no markdown, no code fences) of insight objects matching this schema:

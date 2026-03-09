@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
 import { extractText } from "unpdf";
 
+export const maxDuration = 30;
+
 async function tryExtract(
   buffer: Uint8Array,
   password?: string
