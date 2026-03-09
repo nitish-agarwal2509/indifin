@@ -64,9 +64,9 @@ Each chunk is independently testable and deployable. Chunks are ordered by depen
 
 ---
 
-## Chunk 5: Portfolio Dashboard (Holdings Overview)
+## Chunk 5: Portfolio Dashboard (Holdings Overview) ✅
 
-**Status:** Not started
+**Status:** Complete
 
 | Story | Description |
 |-------|-------------|
