@@ -79,8 +79,8 @@ docs/
 
 ## Key Design Decisions
 
-- **CAS PDF only:** We support CAMS/KFintech Consolidated Account Statements, not individual AMC statements
-- **AI for parsing:** Raw text extracted via pdf-parse, then structured by Gemini (not regex-based parsing)
+- **CAS PDF support:** CAMS/KFintech traditional CAS, MF Central CAS (SoA + Demat Holdings), and CDSL Demat CAS
+- **AI for parsing:** Raw text extracted via unpdf, preprocessed to remove noise (headers, Hindi, footers), then structured by Gemini. Post-processing validates and recalculates totals from transaction data.
 - **Free tier everything:** All services must work within free tiers. No paid dependencies
 - **User confirmation:** AI-parsed data is always shown to the user for review before saving to DB
 - **Vercel 10s limit:** Long AI calls must use streaming or be broken into chunks to stay within serverless function timeout

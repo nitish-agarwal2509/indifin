@@ -155,10 +155,26 @@ Each chunk is independently testable and deployable. Chunks are ordered by depen
 
 ---
 
+## Chunk 11: CAS Parser Improvements ✅
+
+**Status:** Complete
+
+| Story | Description |
+|-------|-------------|
+| US-11.1 | Improved AI prompt to handle MF Central Demat Holdings format (folio-based + ISIN-based) |
+| US-11.2 | Text preprocessing to remove repeated headers, Hindi translations, page footers before AI |
+| US-11.3 | Post-processing validation: recalculate cost_value from transactions, fix gain/loss, recalculate totals |
+| US-11.4 | Smart truncation for very long CAS PDFs (80K char limit) |
+| US-11.5 | Tested with real MF Central CAS (38 pages, 4 schemes, 3 years of transactions) |
+
+**Test:** Upload MF Central Demat CAS → all 4 schemes parsed correctly with accurate closing units, NAV, and valuations
+
+---
+
 ## Verification Checklist
 
-- [ ] Upload sample CAS PDFs and verify parsing accuracy
+- [x] Upload sample CAS PDFs and verify parsing accuracy (MF Central Demat CAS tested)
 - [ ] Compare calculated XIRR against known tools (e.g., Value Research, Kuvera)
 - [ ] Verify Nifty 50 data accuracy against NSE historical data
-- [ ] Test auth flow end-to-end
-- [ ] Test on Vercel free tier deployment limits (10s serverless function timeout)
+- [x] Test auth flow end-to-end
+- [x] Test on Vercel free tier deployment limits (increased to 30s/60s via vercel.json)
