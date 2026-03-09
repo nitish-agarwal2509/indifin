@@ -24,6 +24,11 @@ create policy "Users can insert own portfolios"
   on portfolios for insert
   with check (auth.uid() = user_id);
 
+-- Users can update their own portfolios
+create policy "Users can update own portfolios"
+  on portfolios for update
+  using (auth.uid() = user_id);
+
 -- Users can delete their own portfolios
 create policy "Users can delete own portfolios"
   on portfolios for delete

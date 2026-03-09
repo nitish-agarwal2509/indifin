@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import {
@@ -263,9 +263,8 @@ export default function ReviewPage() {
             </TableHeader>
             <TableBody>
               {parsed.schemes.map((scheme, i) => (
-                <>
+                <Fragment key={i}>
                   <TableRow
-                    key={i}
                     className="cursor-pointer hover:bg-muted/50"
                     onClick={() =>
                       setExpandedScheme(expandedScheme === scheme.folio_number ? null : scheme.folio_number)
@@ -328,7 +327,7 @@ export default function ReviewPage() {
                       </TableCell>
                     </TableRow>
                   )}
-                </>
+                </Fragment>
               ))}
             </TableBody>
           </Table>
