@@ -79,9 +79,9 @@ Each chunk is independently testable and deployable. Chunks are ordered by depen
 
 ---
 
-## Chunk 6: XIRR Calculation
+## Chunk 6: XIRR Calculation ✅
 
-**Status:** Not started
+**Status:** Complete
 
 | Story | Description |
 |-------|-------------|

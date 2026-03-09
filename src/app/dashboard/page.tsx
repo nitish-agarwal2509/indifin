@@ -18,6 +18,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { createClient } from "@/lib/supabase/server";
 import { AllocationChart } from "@/components/allocation-chart";
+import { calculateXIRR, buildCashFlows } from "@/lib/xirr";
 
 function formatCurrency(n: number): string {
   return new Intl.NumberFormat("en-IN", {
@@ -31,6 +32,11 @@ function formatPercent(n: number): string {
   return `${n >= 0 ? "+" : ""}${n.toFixed(2)}%`;
 }
 
+type TransactionRow = {
+  date: string;
+  amount: number;
+};
+
 type SchemeRow = {
   id: string;
   scheme_name: string;
@@ -43,6 +49,7 @@ type SchemeRow = {
   cost_value: number;
   gain_loss: number;
   xirr: number | null;
+  transactions: TransactionRow[];
 };
 
 type PortfolioRow = {
@@ -69,7 +76,7 @@ export default async function DashboardPage() {
     return null;
   }
 
-  // Fetch latest parsed portfolio with schemes
+  // Fetch latest parsed portfolio with schemes and transactions
   const { data: portfolios } = await supabase
     .from("portfolios")
     .select(
@@ -78,7 +85,8 @@ export default async function DashboardPage() {
       total_gain_loss, portfolio_xirr, cas_period_from, cas_period_to, uploaded_at,
       schemes (
         id, scheme_name, folio_number, amc, category,
-        closing_units, closing_nav, closing_value, cost_value, gain_loss, xirr
+        closing_units, closing_nav, closing_value, cost_value, gain_loss, xirr,
+        transactions ( date, amount )
       )
     `
     )
@@ -122,6 +130,31 @@ export default async function DashboardPage() {
     p.total_invested > 0
       ? ((p.total_current_value - p.total_invested) / p.total_invested) * 100
       : 0;
+
+  // Calculate XIRR per scheme from transactions
+  const schemesWithXirr = schemes.map((s) => {
+    const txs = s.transactions || [];
+    if (txs.length === 0 || !s.closing_value) {
+      return { ...s, calculatedXirr: s.xirr };
+    }
+    const cashFlows = buildCashFlows(txs, s.closing_value);
+    const xirr = calculateXIRR(cashFlows);
+    return {
+      ...s,
+      calculatedXirr: xirr != null ? Math.round(xirr * 10000) / 100 : s.xirr,
+    };
+  });
+
+  // Calculate portfolio-level XIRR from all transactions
+  const allTxs = schemes.flatMap((s) => s.transactions || []);
+  let portfolioXirr = p.portfolio_xirr;
+  if (allTxs.length > 0 && p.total_current_value > 0) {
+    const allCashFlows = buildCashFlows(allTxs, p.total_current_value);
+    const computed = calculateXIRR(allCashFlows);
+    if (computed != null) {
+      portfolioXirr = Math.round(computed * 10000) / 100;
+    }
+  }
 
   // Compute allocation by category
   const allocationMap: Record<string, number> = {};
@@ -186,9 +219,12 @@ export default async function DashboardPage() {
         <Card>
           <CardContent className="pt-6">
             <p className="text-sm text-muted-foreground">Portfolio XIRR</p>
-            <p className="text-2xl font-bold">
-              {p.portfolio_xirr != null ? `${p.portfolio_xirr}%` : "N/A"}
+            <p
+              className={`text-2xl font-bold ${portfolioXirr != null && portfolioXirr >= 0 ? "text-green-600" : portfolioXirr != null ? "text-red-600" : ""}`}
+            >
+              {portfolioXirr != null ? `${portfolioXirr}%` : "N/A"}
             </p>
+            <p className="text-xs text-muted-foreground">Calculated</p>
           </CardContent>
         </Card>
       </div>
@@ -202,7 +238,7 @@ export default async function DashboardPage() {
               Holdings ({schemes.length})
             </CardTitle>
             <CardDescription>
-              Your mutual fund schemes from CAS statement
+              Your mutual fund schemes with calculated XIRR
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -218,7 +254,7 @@ export default async function DashboardPage() {
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {schemes.map((s) => {
+                {schemesWithXirr.map((s) => {
                   const returnPct =
                     s.cost_value > 0
                       ? ((s.closing_value - s.cost_value) / s.cost_value) * 100
@@ -261,7 +297,19 @@ export default async function DashboardPage() {
                         </p>
                       </TableCell>
                       <TableCell className="text-right">
-                        {s.xirr != null ? `${s.xirr}%` : "—"}
+                        {s.calculatedXirr != null ? (
+                          <span
+                            className={
+                              s.calculatedXirr >= 0
+                                ? "text-green-600"
+                                : "text-red-600"
+                            }
+                          >
+                            {s.calculatedXirr}%
+                          </span>
+                        ) : (
+                          "—"
+                        )}
                       </TableCell>
                     </TableRow>
                   );
