@@ -5,7 +5,7 @@
 IndiFin is an Indian personal finance web app that lets users upload their mutual fund CAS (Consolidated Account Statement) PDF, uses AI to parse it, and shows portfolio performance against the Nifty 50 index with AI-powered insights.
 
 - **Docs:** See `docs/PRD.md` for full product requirements, `docs/ROADMAP.md` for implementation chunks
-- **Current status:** Chunks 1-8 complete (setup + auth + PDF upload + AI parsing + dashboard + XIRR + Nifty comparison + AI insights). See ROADMAP.md for progress.
+- **Current status:** All chunks (1-9) complete. See ROADMAP.md for progress.
 
 ## Tech Stack
 
@@ -38,7 +38,9 @@ src/
 │       └── insights/page.tsx # AI insights
 ├── components/
 │   ├── ui/                 # shadcn/ui components (auto-generated)
-│   └── user-nav.tsx        # User avatar + logout (client component)
+│   ├── user-nav.tsx        # User avatar + logout (client component)
+│   ├── mobile-nav.tsx      # Mobile hamburger menu (client component)
+│   └── spinner.tsx         # Loading spinner component
 ├── lib/
 │   ├── utils.ts            # cn() utility for className merging
 │   ├── supabase/
@@ -49,6 +51,7 @@ src/
 │   ├── cas-parser.ts       # CAS text → structured JSON via Gemini
 │   ├── xirr.ts             # XIRR calculation (Newton-Raphson method)
 │   ├── nifty.ts            # Nifty 50 data fetch + portfolio simulation
+│   ├── retry.ts            # Exponential backoff retry utility for Gemini API
 │   └── types.ts            # Shared TypeScript interfaces (ParsedCAS, etc.)
 ├── middleware.ts            # Next.js middleware (routes to supabase/middleware)
 docs/

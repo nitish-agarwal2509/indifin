@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { geminiModel } from "@/lib/gemini";
+import { withRetry } from "@/lib/retry";
 
 const INSIGHTS_PROMPT = `You are an Indian mutual fund portfolio advisor. Analyze the following portfolio data and provide actionable insights.
 
@@ -116,8 +117,10 @@ export async function POST(request: Request) {
       })),
     };
 
-    const result = await geminiModel.generateContent(
-      INSIGHTS_PROMPT + JSON.stringify(summary, null, 2)
+    const result = await withRetry(
+      () => geminiModel.generateContent(INSIGHTS_PROMPT + JSON.stringify(summary, null, 2)),
+      3,
+      2000
     );
     const text = result.response.text();
 

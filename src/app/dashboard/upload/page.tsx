@@ -3,6 +3,7 @@
 import { useState, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
+import { Spinner } from "@/components/spinner";
 import {
   Card,
   CardContent,
@@ -156,6 +157,7 @@ export default function UploadPage() {
       {state === "uploading" && (
         <Card>
           <CardContent className="py-12 text-center">
+            <Spinner className="h-8 w-8 mx-auto mb-4 text-primary" />
             <p className="text-lg font-medium">Extracting text from {fileName}...</p>
             <p className="text-sm text-muted-foreground mt-2">
               This may take a few seconds.

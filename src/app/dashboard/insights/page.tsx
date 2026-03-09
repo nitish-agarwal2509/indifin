@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
+import { Spinner } from "@/components/spinner";
 import {
   Card,
   CardContent,
@@ -163,6 +164,7 @@ export default function InsightsPage() {
       {state === "loading" && (
         <Card>
           <CardContent className="py-12 text-center">
+            <Spinner className="h-8 w-8 mx-auto mb-4 text-primary" />
             <p className="text-lg font-medium">
               Analyzing your portfolio with AI...
             </p>

@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { UserNav } from "@/components/user-nav";
+import { MobileNav } from "@/components/mobile-nav";
 import { createClient } from "@/lib/supabase/server";
 
 const navLinks = [
@@ -42,7 +43,10 @@ export default async function DashboardLayout({
               ))}
             </nav>
           </div>
-          <UserNav user={user} />
+          <div className="flex items-center gap-2">
+            <UserNav user={user} />
+            <MobileNav links={navLinks} />
+          </div>
         </div>
       </header>
       <main className="flex-1 container mx-auto px-4 py-8">{children}</main>

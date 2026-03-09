@@ -1,4 +1,5 @@
 import { geminiModel } from "./gemini";
+import { withRetry } from "./retry";
 import type { ParsedCAS } from "./types";
 
 const CAS_PARSE_PROMPT = `You are a financial document parser. Extract structured data from the following Indian Mutual Fund Consolidated Account Statement (CAS) text.
@@ -55,7 +56,11 @@ CAS Text:
 `;
 
 export async function parseCASText(rawText: string): Promise<ParsedCAS> {
-  const result = await geminiModel.generateContent(CAS_PARSE_PROMPT + rawText);
+  const result = await withRetry(
+    () => geminiModel.generateContent(CAS_PARSE_PROMPT + rawText),
+    3,
+    2000
+  );
   const response = result.response;
   const text = response.text();
 

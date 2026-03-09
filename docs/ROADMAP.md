@@ -123,16 +123,16 @@ Each chunk is independently testable and deployable. Chunks are ordered by depen
 
 ---
 
-## Chunk 9: Polish & Edge Cases
+## Chunk 9: Polish & Edge Cases ✅
 
-**Status:** Not started
+**Status:** Complete
 
 | Story | Description |
 |-------|-------------|
-| US-9.1 | Handle re-upload (update existing portfolio vs create new) |
-| US-9.2 | Loading states, error handling, empty states |
-| US-9.3 | Responsive design (mobile-friendly) |
-| US-9.4 | Rate limit handling for Gemini free tier (queue + retry) |
+| US-9.1 | Handle re-upload (old portfolios auto-deleted on new confirm via cascade) |
+| US-9.2 | Loading spinners, error handling, empty states across all pages |
+| US-9.3 | Responsive design — mobile hamburger nav, scrollable tables, responsive grids |
+| US-9.4 | Gemini retry with exponential backoff for 429/503 rate limit errors |
 
 **Test:** Full end-to-end flow works smoothly on desktop and mobile
 

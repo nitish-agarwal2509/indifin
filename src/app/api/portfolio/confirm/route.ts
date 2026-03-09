@@ -23,6 +23,19 @@ export async function POST(request: Request) {
       );
     }
 
+    // Delete old parsed portfolios for this user (cascade deletes schemes + transactions)
+    const { data: oldPortfolios } = await supabase
+      .from("portfolios")
+      .select("id")
+      .eq("user_id", user.id)
+      .eq("is_parsed", true)
+      .neq("id", portfolioId);
+
+    if (oldPortfolios && oldPortfolios.length > 0) {
+      const oldIds = oldPortfolios.map((p) => p.id);
+      await supabase.from("portfolios").delete().in("id", oldIds);
+    }
+
     // Update portfolio with investor info
     const { error: updateError } = await supabase
       .from("portfolios")

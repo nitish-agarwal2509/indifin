@@ -3,6 +3,7 @@
 import { Fragment, useEffect, useState } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
+import { Spinner } from "@/components/spinner";
 import {
   Card,
   CardContent,
@@ -108,6 +109,7 @@ export default function ReviewPage() {
         </div>
         <Card>
           <CardContent className="py-16 text-center">
+            <Spinner className="h-8 w-8 mx-auto mb-4 text-primary" />
             <p className="text-lg font-medium">Extracting portfolio data with AI...</p>
             <p className="text-sm text-muted-foreground mt-2">
               This may take 10-20 seconds.
@@ -250,6 +252,7 @@ export default function ReviewPage() {
           <CardDescription>Click a scheme to see its transactions</CardDescription>
         </CardHeader>
         <CardContent>
+          <div className="overflow-x-auto">
           <Table>
             <TableHeader>
               <TableRow>
@@ -331,6 +334,7 @@ export default function ReviewPage() {
               ))}
             </TableBody>
           </Table>
+          </div>
         </CardContent>
       </Card>
 
