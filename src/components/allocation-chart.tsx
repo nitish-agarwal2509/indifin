@@ -2,7 +2,7 @@
 
 import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer, Legend } from "recharts";
 
-const COLORS = ["#2563eb", "#16a34a", "#eab308", "#9333ea", "#f97316", "#06b6d4"];
+const COLORS = ["#34d399", "#22d3ee", "#a78bfa", "#fbbf24", "#fb923c", "#f472b6"];
 
 type AllocationData = { name: string; value: number };
 
@@ -33,15 +33,22 @@ export function AllocationChart({ data }: { data: AllocationData[] }) {
             outerRadius={90}
             paddingAngle={2}
             dataKey="value"
+            stroke="rgba(255,255,255,0.05)"
           >
             {data.map((_, i) => (
               <Cell key={i} fill={COLORS[i % COLORS.length]} />
             ))}
           </Pie>
           <Tooltip
+            contentStyle={{
+              backgroundColor: "rgba(15, 23, 42, 0.95)",
+              border: "1px solid rgba(255,255,255,0.1)",
+              borderRadius: "8px",
+              color: "#e2e8f0",
+            }}
             formatter={(value) => formatCurrency(Number(value))}
           />
-          <Legend />
+          <Legend wrapperStyle={{ color: "rgba(255,255,255,0.7)" }} />
         </PieChart>
       </ResponsiveContainer>
       <div className="mt-4 space-y-2">

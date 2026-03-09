@@ -38,19 +38,27 @@ export function ComparisonChart({ data }: { data: DataPoint[] }) {
   return (
     <ResponsiveContainer width="100%" height={400}>
       <LineChart data={data}>
-        <CartesianGrid strokeDasharray="3 3" />
+        <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.06)" />
         <XAxis
           dataKey="date"
           tickFormatter={formatDate}
-          tick={{ fontSize: 12 }}
+          tick={{ fontSize: 12, fill: "rgba(255,255,255,0.5)" }}
+          stroke="rgba(255,255,255,0.1)"
           interval="preserveStartEnd"
         />
         <YAxis
           tickFormatter={(v) => `₹${(v / 100000).toFixed(1)}L`}
-          tick={{ fontSize: 12 }}
+          tick={{ fontSize: 12, fill: "rgba(255,255,255,0.5)" }}
+          stroke="rgba(255,255,255,0.1)"
           width={70}
         />
         <Tooltip
+          contentStyle={{
+            backgroundColor: "rgba(15, 23, 42, 0.95)",
+            border: "1px solid rgba(255,255,255,0.1)",
+            borderRadius: "8px",
+            color: "#e2e8f0",
+          }}
           formatter={(value, name) => [
             formatCurrency(Number(value)),
             name === "portfolio" ? "Your Portfolio" : "Nifty 50 Equivalent",
@@ -61,19 +69,20 @@ export function ComparisonChart({ data }: { data: DataPoint[] }) {
           formatter={(value) =>
             value === "portfolio" ? "Your Portfolio" : "Nifty 50 Equivalent"
           }
+          wrapperStyle={{ color: "rgba(255,255,255,0.7)" }}
         />
         <Line
           type="monotone"
           dataKey="portfolio"
-          stroke="#2563eb"
-          strokeWidth={2}
+          stroke="#34d399"
+          strokeWidth={2.5}
           dot={false}
         />
         <Line
           type="monotone"
           dataKey="nifty"
-          stroke="#f97316"
-          strokeWidth={2}
+          stroke="#fbbf24"
+          strokeWidth={2.5}
           dot={false}
         />
       </LineChart>

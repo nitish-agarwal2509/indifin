@@ -146,7 +146,7 @@ export default function ReviewPage() {
     return (
       <Card>
         <CardContent className="py-12 text-center">
-          <p className="text-lg font-medium text-green-600">
+          <p className="text-lg font-medium text-emerald-400">
             Portfolio data saved successfully!
           </p>
           <p className="text-sm text-muted-foreground mt-2">
@@ -228,7 +228,7 @@ export default function ReviewPage() {
         <Card>
           <CardContent className="pt-6">
             <p className="text-sm text-muted-foreground">Gain/Loss</p>
-            <p className={`text-xl font-bold ${parsed.total_gain_loss >= 0 ? "text-green-600" : "text-red-600"}`}>
+            <p className={`text-xl font-bold ${parsed.total_gain_loss >= 0 ? "text-emerald-400" : "text-rose-400"}`}>
               {formatCurrency(parsed.total_gain_loss)}
             </p>
           </CardContent>
@@ -286,7 +286,7 @@ export default function ReviewPage() {
                     </TableCell>
                     <TableCell className="text-right">{formatCurrency(scheme.cost_value)}</TableCell>
                     <TableCell className="text-right">{formatCurrency(scheme.closing_value)}</TableCell>
-                    <TableCell className={`text-right ${scheme.gain_loss >= 0 ? "text-green-600" : "text-red-600"}`}>
+                    <TableCell className={`text-right ${scheme.gain_loss >= 0 ? "text-emerald-400" : "text-rose-400"}`}>
                       {formatCurrency(scheme.gain_loss)}
                     </TableCell>
                     <TableCell className="text-right">
@@ -314,7 +314,7 @@ export default function ReviewPage() {
                               <TableRow key={j}>
                                 <TableCell className="text-xs">{tx.date}</TableCell>
                                 <TableCell className="text-xs">{tx.description}</TableCell>
-                                <TableCell className={`text-xs text-right ${tx.amount >= 0 ? "" : "text-red-600"}`}>
+                                <TableCell className={`text-xs text-right ${tx.amount >= 0 ? "" : "text-rose-400"}`}>
                                   {formatCurrency(tx.amount)}
                                 </TableCell>
                                 <TableCell className="text-xs text-right">

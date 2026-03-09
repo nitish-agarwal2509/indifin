@@ -31,22 +31,22 @@ const typeStyles: Record<
   }
 > = {
   summary: {
-    border: "border-l-blue-500",
+    border: "border-l-cyan-400",
     badge: "Summary",
     badgeVariant: "default",
   },
   positive: {
-    border: "border-l-green-500",
+    border: "border-l-emerald-400",
     badge: "Positive",
     badgeVariant: "secondary",
   },
   warning: {
-    border: "border-l-yellow-500",
+    border: "border-l-amber-400",
     badge: "Warning",
     badgeVariant: "destructive",
   },
   suggestion: {
-    border: "border-l-purple-500",
+    border: "border-l-violet-400",
     badge: "Suggestion",
     badgeVariant: "outline",
   },
@@ -138,7 +138,7 @@ export default function InsightsPage() {
             AI-powered analysis and recommendations for your portfolio.
           </p>
         </div>
-        <Button onClick={generateInsights} disabled={state === "loading"}>
+        <Button onClick={generateInsights} disabled={state === "loading"} className="bg-emerald-500 hover:bg-emerald-400 text-black font-semibold">
           {state === "loading"
             ? "Analyzing..."
             : state === "done"

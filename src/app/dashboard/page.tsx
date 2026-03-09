@@ -106,7 +106,7 @@ export default async function DashboardPage() {
             Upload your CAS statement to get started.
           </p>
         </div>
-        <Card className="border-dashed">
+        <Card className="border-dashed border-border/50">
           <CardHeader className="text-center">
             <CardTitle>No portfolio data yet</CardTitle>
             <CardDescription>
@@ -116,7 +116,7 @@ export default async function DashboardPage() {
           </CardHeader>
           <CardContent className="flex justify-center">
             <Link href="/dashboard/upload">
-              <Button>Upload CAS PDF</Button>
+              <Button className="bg-emerald-500 hover:bg-emerald-400 text-black font-semibold">Upload CAS PDF</Button>
             </Link>
           </CardContent>
         </Card>
@@ -179,7 +179,7 @@ export default async function DashboardPage() {
           </p>
         </div>
         <Link href="/dashboard/upload">
-          <Button variant="outline">Upload New CAS</Button>
+          <Button variant="outline" className="border-border/50 hover:border-emerald-500/30 hover:bg-emerald-500/5">Upload New CAS</Button>
         </Link>
       </div>
 
@@ -205,12 +205,12 @@ export default async function DashboardPage() {
           <CardContent className="pt-6">
             <p className="text-sm text-muted-foreground">Total Gain/Loss</p>
             <p
-              className={`text-2xl font-bold ${p.total_gain_loss >= 0 ? "text-green-600" : "text-red-600"}`}
+              className={`text-2xl font-bold ${p.total_gain_loss >= 0 ? "text-emerald-400" : "text-rose-400"}`}
             >
               {formatCurrency(p.total_gain_loss)}
             </p>
             <p
-              className={`text-xs ${totalReturnPct >= 0 ? "text-green-600" : "text-red-600"}`}
+              className={`text-xs ${totalReturnPct >= 0 ? "text-emerald-400" : "text-rose-400"}`}
             >
               {formatPercent(totalReturnPct)}
             </p>
@@ -220,7 +220,7 @@ export default async function DashboardPage() {
           <CardContent className="pt-6">
             <p className="text-sm text-muted-foreground">Portfolio XIRR</p>
             <p
-              className={`text-2xl font-bold ${portfolioXirr != null && portfolioXirr >= 0 ? "text-green-600" : portfolioXirr != null ? "text-red-600" : ""}`}
+              className={`text-2xl font-bold ${portfolioXirr != null && portfolioXirr >= 0 ? "text-emerald-400" : portfolioXirr != null ? "text-rose-400" : ""}`}
             >
               {portfolioXirr != null ? `${portfolioXirr}%` : "N/A"}
             </p>
@@ -285,14 +285,14 @@ export default async function DashboardPage() {
                         <span
                           className={
                             s.gain_loss >= 0
-                              ? "text-green-600"
-                              : "text-red-600"
+                              ? "text-emerald-400"
+                              : "text-rose-400"
                           }
                         >
                           {formatCurrency(s.gain_loss)}
                         </span>
                         <p
-                          className={`text-xs ${returnPct >= 0 ? "text-green-600" : "text-red-600"}`}
+                          className={`text-xs ${returnPct >= 0 ? "text-emerald-400" : "text-rose-400"}`}
                         >
                           {formatPercent(returnPct)}
                         </p>
@@ -302,8 +302,8 @@ export default async function DashboardPage() {
                           <span
                             className={
                               s.calculatedXirr >= 0
-                                ? "text-green-600"
-                                : "text-red-600"
+                                ? "text-emerald-400"
+                                : "text-rose-400"
                             }
                           >
                             {s.calculatedXirr}%

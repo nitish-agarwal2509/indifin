@@ -199,7 +199,7 @@ export default function UploadPage() {
       {state === "saved" && (
         <Card>
           <CardContent className="py-12 text-center">
-            <p className="text-lg font-medium text-green-600">PDF saved successfully!</p>
+            <p className="text-lg font-medium text-emerald-400">PDF saved successfully!</p>
             <p className="text-sm text-muted-foreground mt-2">
               Redirecting to AI parsing...
             </p>

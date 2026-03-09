@@ -162,7 +162,7 @@ export default async function ComparePage() {
         <Card>
           <CardContent className="pt-6">
             <p className="text-sm text-muted-foreground">Your Portfolio</p>
-            <p className="text-2xl font-bold text-blue-600">
+            <p className="text-2xl font-bold text-cyan-400">
               {formatCurrency(portfolio.total_current_value)}
             </p>
             <p className="text-sm text-muted-foreground mt-1">
@@ -170,8 +170,8 @@ export default async function ComparePage() {
               <span
                 className={
                   portfolioXirrPct != null && portfolioXirrPct >= 0
-                    ? "text-green-600 font-medium"
-                    : "text-red-600 font-medium"
+                    ? "text-emerald-400 font-medium"
+                    : "text-rose-400 font-medium"
                 }
               >
                 {portfolioXirrPct != null ? `${portfolioXirrPct}%` : "N/A"}
@@ -184,7 +184,7 @@ export default async function ComparePage() {
             <p className="text-sm text-muted-foreground">
               Nifty 50 Equivalent
             </p>
-            <p className="text-2xl font-bold text-orange-600">
+            <p className="text-2xl font-bold text-amber-400">
               {formatCurrency(niftyResult.currentValue)}
             </p>
             <p className="text-sm text-muted-foreground mt-1">
@@ -192,8 +192,8 @@ export default async function ComparePage() {
               <span
                 className={
                   niftyXirrPct != null && niftyXirrPct >= 0
-                    ? "text-green-600 font-medium"
-                    : "text-red-600 font-medium"
+                    ? "text-emerald-400 font-medium"
+                    : "text-rose-400 font-medium"
                 }
               >
                 {niftyXirrPct != null ? `${niftyXirrPct}%` : "N/A"}
@@ -205,7 +205,7 @@ export default async function ComparePage() {
           <CardContent className="pt-6">
             <p className="text-sm text-muted-foreground">Difference</p>
             <p
-              className={`text-2xl font-bold ${portfolioBetter ? "text-green-600" : "text-red-600"}`}
+              className={`text-2xl font-bold ${portfolioBetter ? "text-emerald-400" : "text-rose-400"}`}
             >
               {portfolioBetter ? "+" : "-"}
               {formatCurrency(diff)}

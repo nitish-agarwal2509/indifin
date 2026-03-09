@@ -85,6 +85,19 @@ docs/
 - **User confirmation:** AI-parsed data is always shown to the user for review before saving to DB
 - **Vercel 10s limit:** Long AI calls must use streaming or be broken into chunks to stay within serverless function timeout
 
+## Design System — Bold Premium Fintech
+
+- **Theme:** Dark-first with deep navy backgrounds, no light mode
+- **Primary accent:** Emerald green (`emerald-400`/`emerald-500`) — brand, CTAs, positive values
+- **Negative values:** Rose (`rose-400`) for losses/errors
+- **Secondary accents:** Cyan for portfolio, amber for Nifty/warnings, violet for suggestions
+- **Surfaces:** Cards use `bg-card/50` or `bg-card/80` with `backdrop-blur-xl` for glassmorphism
+- **Borders:** `border-border/50` (semi-transparent), hover to `border-emerald-500/30`
+- **Buttons:** Primary CTAs use `bg-emerald-500 text-black font-semibold` with glow shadows
+- **Typography:** Gradient text for brand name (`from-emerald-400 to-teal-300 bg-clip-text text-transparent`)
+- **Charts:** Emerald (#34d399) for portfolio, amber (#fbbf24) for Nifty; dark tooltips with slate bg
+- **Pie chart palette:** emerald, cyan, violet, amber, orange, pink
+
 ## External APIs
 
 - **AMFI NAV data:** `https://www.amfiindia.com/spages/NAVAll.txt` (daily NAV for all schemes)
