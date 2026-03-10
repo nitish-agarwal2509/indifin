@@ -155,14 +155,23 @@ Indian mutual fund investors lack a simple way to see how their portfolio perfor
 
 ## 8. Pages / Routes
 
-| Route | Description |
-|-------|-------------|
-| `/` | Landing page with product info + CTA |
-| `/login` | Auth page (Google + Email/Password) |
-| `/dashboard` | Main portfolio dashboard |
-| `/dashboard/upload` | PDF upload + parsing flow |
-| `/dashboard/compare` | Portfolio vs Nifty 50 detailed comparison |
-| `/dashboard/insights` | AI insights and recommendations |
+| Route | Description | Version |
+|-------|-------------|---------|
+| `/` | Landing page with product info + CTA | V1 |
+| `/login` | Auth page (Google OAuth) | V1 |
+| `/dashboard` | Main portfolio dashboard | V1 |
+| `/dashboard/upload` | PDF upload + parsing flow | V1 |
+| `/dashboard/review` | AI-parsed data review + confirm | V1 |
+| `/dashboard/compare` | Portfolio vs Nifty 50 detailed comparison | V1 |
+| `/dashboard/insights` | AI insights and recommendations | V1 |
+| `/dashboard/connect` | Data source selection (Upload PDF / DigiLocker) | V2 |
+| `/dashboard/scheme/[id]` | Individual scheme detail + transaction history | V2 |
+| `/dashboard/chat` | Conversational AI advisor | V2 |
+| `/dashboard/portfolios` | Multi-portfolio management | V3 |
+| `/dashboard/tax` | Tax breakdown (LTCG/STCG) per scheme | V3 |
+| `/dashboard/goals` | Goal-based planning + progress tracking | V3 |
+| `/dashboard/overlap` | Fund overlap & sector concentration analysis | V3 |
+| `/dashboard/alerts` | Notification & alert configuration | V3 |
 
 ## 9. MVP Scope
 
@@ -174,13 +183,24 @@ Indian mutual fund investors lack a simple way to see how their portfolio perfor
 - AI summary + top 3 insights
 - Google auth
 
-**Out of scope (v2+):**
-- Multiple portfolio support
-- Goal-based planning
-- Tax harvesting suggestions
-- Real-time NAV updates
-- Mobile app
-- PDF auto-fetch from email
+**V2 scope (Enhanced Experience):**
+- DigiLocker integration to pull CAS directly (extensible for Zerodha, Groww in V3)
+- Persist AI insights & portfolio snapshots for historical tracking
+- Scheme detail page with transaction history & NAV chart
+- Flexible comparison period (1Y, 3Y, 5Y, Max) with accurate per-date valuation
+- SIP detection & tracking from transaction patterns
+- Portfolio PDF report download
+- Smart AI chat (conversational advisor with portfolio context)
+- UI polish: skeleton loaders, animated transitions, onboarding tour, error boundaries
+
+**V3 scope (Advanced Features):**
+- Multiple portfolio support (family members, separate strategies)
+- Tax awareness (LTCG/STCG calculator, tax harvesting opportunities)
+- Goal-based planning (link schemes to life goals, projected completion)
+- Real-time NAV & daily portfolio valuation via AMFI data
+- Broker integrations (Zerodha Kite Connect, Groww API)
+- Overlap & concentration analysis (stock overlap matrix, sector exposure)
+- Notifications & alerts (portfolio threshold, NAV drops, SIP reminders)
 
 ## 10. Risks & Mitigations
 
