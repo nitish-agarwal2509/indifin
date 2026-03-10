@@ -2,8 +2,8 @@
 
 import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer, Legend } from "recharts";
 
-// Premium fintech color palette - amber gold, slate blue, teal, muted coral
-const COLORS = ["#d4a574", "#6b8cae", "#5a9a8b", "#c4857a", "#8b9dc3", "#a3927a"];
+// Dark Premium color palette - violet, indigo, cyan, pink, amber
+const COLORS = ["#a78bfa", "#6366f1", "#22d3ee", "#f472b6", "#fbbf24", "#34d399"];
 
 type AllocationData = { name: string; value: number };
 
@@ -42,10 +42,10 @@ export function AllocationChart({ data }: { data: AllocationData[] }) {
           </Pie>
           <Tooltip
             contentStyle={{
-              backgroundColor: "rgba(26, 29, 46, 0.95)",
-              border: "1px solid rgba(255,255,255,0.08)",
-              borderRadius: "10px",
-              color: "#f4f4f5",
+              backgroundColor: "rgba(24, 24, 27, 0.95)",
+              border: "1px solid rgba(167, 139, 250, 0.2)",
+              borderRadius: "12px",
+              color: "#fafafa",
             }}
             formatter={(value) => formatCurrency(Number(value))}
           />

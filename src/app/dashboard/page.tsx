@@ -109,10 +109,10 @@ export default async function DashboardPage() {
             Upload your CAS statement to get started.
           </p>
         </div>
-        <Card className="border-dashed border-border/50 bg-card/40">
+        <Card className="glow-card border-dashed border-zinc-800 bg-zinc-900/50">
           <CardHeader className="text-center pb-2">
-            <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-primary/10">
-              <Upload className="h-7 w-7 text-primary" />
+            <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-violet-500/20 to-indigo-500/20 border border-violet-500/20">
+              <Upload className="h-7 w-7 text-violet-400" />
             </div>
             <CardTitle className="text-xl">No portfolio data yet</CardTitle>
             <CardDescription className="max-w-md mx-auto">
@@ -122,7 +122,7 @@ export default async function DashboardPage() {
           </CardHeader>
           <CardContent className="flex justify-center pb-8">
             <Link href="/dashboard/upload">
-              <Button className="bg-primary hover:bg-primary/90 text-primary-foreground font-medium px-6">
+              <Button className="shimmer-button text-zinc-950 font-medium px-6 border-0">
                 Upload CAS PDF
               </Button>
             </Link>
@@ -200,53 +200,53 @@ export default async function DashboardPage() {
 
       {/* Summary Cards */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-        <Card className="bg-card/60">
+        <Card className="glow-card bg-zinc-900/50 border-zinc-800">
           <CardContent className="pt-6">
-            <p className="text-sm text-muted-foreground">Total Invested</p>
-            <p className="text-2xl font-semibold text-foreground">
+            <p className="text-sm text-zinc-500">Total Invested</p>
+            <p className="text-2xl font-semibold text-zinc-100">
               {formatCurrency(p.total_invested)}
             </p>
           </CardContent>
         </Card>
-        <Card className="bg-card/60">
+        <Card className="glow-card bg-zinc-900/50 border-zinc-800">
           <CardContent className="pt-6">
-            <p className="text-sm text-muted-foreground">Current Value</p>
-            <p className="text-2xl font-semibold text-foreground">
+            <p className="text-sm text-zinc-500">Current Value</p>
+            <p className="text-2xl font-semibold text-zinc-100">
               {formatCurrency(p.total_current_value)}
             </p>
           </CardContent>
         </Card>
-        <Card className="bg-card/60">
+        <Card className="glow-card bg-zinc-900/50 border-zinc-800">
           <CardContent className="pt-6">
-            <p className="text-sm text-muted-foreground">Total Gain/Loss</p>
+            <p className="text-sm text-zinc-500">Total Gain/Loss</p>
             <div className="flex items-center gap-2">
               <p
-                className={`text-2xl font-semibold ${p.total_gain_loss >= 0 ? "text-chart-3" : "text-destructive"}`}
+                className={`text-2xl font-semibold ${p.total_gain_loss >= 0 ? "text-cyan-400" : "text-red-400"}`}
               >
                 {formatCurrency(p.total_gain_loss)}
               </p>
               {p.total_gain_loss >= 0 ? (
-                <TrendingUp className="h-4 w-4 text-chart-3" />
+                <TrendingUp className="h-4 w-4 text-cyan-400" />
               ) : (
-                <TrendingDown className="h-4 w-4 text-destructive" />
+                <TrendingDown className="h-4 w-4 text-red-400" />
               )}
             </div>
             <p
-              className={`text-xs mt-1 ${totalReturnPct >= 0 ? "text-chart-3" : "text-destructive"}`}
+              className={`text-xs mt-1 ${totalReturnPct >= 0 ? "text-cyan-400" : "text-red-400"}`}
             >
               {formatPercent(totalReturnPct)}
             </p>
           </CardContent>
         </Card>
-        <Card className="bg-card/60">
+        <Card className="glow-card bg-zinc-900/50 border-zinc-800">
           <CardContent className="pt-6">
-            <p className="text-sm text-muted-foreground">Portfolio XIRR</p>
+            <p className="text-sm text-zinc-500">Portfolio XIRR</p>
             <p
-              className={`text-2xl font-semibold ${portfolioXirr != null && portfolioXirr >= 0 ? "text-primary" : portfolioXirr != null ? "text-destructive" : "text-foreground"}`}
+              className={`text-2xl font-semibold ${portfolioXirr != null && portfolioXirr >= 0 ? "text-violet-400" : portfolioXirr != null ? "text-red-400" : "text-zinc-100"}`}
             >
               {portfolioXirr != null ? `${portfolioXirr}%` : "N/A"}
             </p>
-            <p className="text-xs text-muted-foreground mt-1">
+            <p className="text-xs text-zinc-500 mt-1">
               Time-weighted returns
             </p>
           </CardContent>
@@ -256,7 +256,7 @@ export default async function DashboardPage() {
       {/* Holdings Table + Allocation Chart */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Holdings Table */}
-        <Card className="lg:col-span-2 bg-card/60">
+        <Card className="glow-card lg:col-span-2 bg-zinc-900/50 border-zinc-800">
           <CardHeader>
             <CardTitle className="text-lg font-semibold">
               Holdings ({schemes.length})
@@ -309,14 +309,14 @@ export default async function DashboardPage() {
                         <span
                           className={
                             s.gain_loss >= 0
-                              ? "text-chart-3"
-                              : "text-destructive"
+                              ? "text-cyan-400"
+                              : "text-red-400"
                           }
                         >
                           {formatCurrency(s.gain_loss)}
                         </span>
                         <p
-                          className={`text-xs ${returnPct >= 0 ? "text-chart-3" : "text-destructive"}`}
+                          className={`text-xs ${returnPct >= 0 ? "text-cyan-400" : "text-red-400"}`}
                         >
                           {formatPercent(returnPct)}
                         </p>
@@ -326,14 +326,14 @@ export default async function DashboardPage() {
                           <span
                             className={
                               s.calculatedXirr >= 0
-                                ? "text-primary"
-                                : "text-destructive"
+                                ? "text-violet-400"
+                                : "text-red-400"
                             }
                           >
                             {s.calculatedXirr}%
                           </span>
                         ) : (
-                          <span className="text-muted-foreground">—</span>
+                          <span className="text-zinc-500">—</span>
                         )}
                       </TableCell>
                     </TableRow>
@@ -346,7 +346,7 @@ export default async function DashboardPage() {
         </Card>
 
         {/* Asset Allocation Pie Chart */}
-        <Card className="bg-card/60">
+        <Card className="glow-card bg-zinc-900/50 border-zinc-800">
           <CardHeader>
             <CardTitle className="text-lg font-semibold">
               Asset Allocation

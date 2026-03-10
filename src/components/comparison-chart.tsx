@@ -54,10 +54,10 @@ export function ComparisonChart({ data }: { data: DataPoint[] }) {
         />
         <Tooltip
           contentStyle={{
-            backgroundColor: "rgba(26, 29, 46, 0.95)",
-            border: "1px solid rgba(255,255,255,0.08)",
-            borderRadius: "10px",
-            color: "#f4f4f5",
+            backgroundColor: "rgba(24, 24, 27, 0.95)",
+            border: "1px solid rgba(167, 139, 250, 0.2)",
+            borderRadius: "12px",
+            color: "#fafafa",
           }}
           formatter={(value, name) => [
             formatCurrency(Number(value)),
@@ -69,19 +69,19 @@ export function ComparisonChart({ data }: { data: DataPoint[] }) {
           formatter={(value) =>
             value === "portfolio" ? "Your Portfolio" : "Nifty 50 Equivalent"
           }
-          wrapperStyle={{ color: "rgba(255,255,255,0.7)" }}
+          wrapperStyle={{ color: "rgba(161, 161, 170)" }}
         />
         <Line
           type="monotone"
           dataKey="portfolio"
-          stroke="#6b8cae"
+          stroke="#a78bfa"
           strokeWidth={2.5}
           dot={false}
         />
         <Line
           type="monotone"
           dataKey="nifty"
-          stroke="#d4a574"
+          stroke="#fbbf24"
           strokeWidth={2.5}
           dot={false}
         />

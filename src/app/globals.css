@@ -47,40 +47,40 @@
   --radius-4xl: calc(var(--radius) * 2.6);
 }
 
-/* Premium Indian Fintech — Dark-first, Trustworthy Theme */
+/* Dark Mode Premium — Zinc-950 Base with Indigo/Violet Accents */
 :root {
-  --background: oklch(0.12 0.01 250);
-  --foreground: oklch(0.97 0.005 250);
-  --card: oklch(0.16 0.012 250);
-  --card-foreground: oklch(0.97 0.005 250);
-  --popover: oklch(0.16 0.012 250);
-  --popover-foreground: oklch(0.97 0.005 250);
-  --primary: oklch(0.85 0.12 85);
-  --primary-foreground: oklch(0.12 0.01 250);
-  --secondary: oklch(0.20 0.015 250);
-  --secondary-foreground: oklch(0.92 0.01 250);
-  --muted: oklch(0.20 0.015 250);
-  --muted-foreground: oklch(0.65 0.02 250);
-  --accent: oklch(0.24 0.02 250);
-  --accent-foreground: oklch(0.97 0.005 250);
-  --destructive: oklch(0.60 0.20 25);
-  --border: oklch(0.24 0.015 250);
-  --input: oklch(0.20 0.015 250);
-  --ring: oklch(0.85 0.12 85);
-  --chart-1: oklch(0.85 0.12 85);
-  --chart-2: oklch(0.65 0.15 250);
-  --chart-3: oklch(0.70 0.12 180);
-  --chart-4: oklch(0.75 0.10 320);
-  --chart-5: oklch(0.60 0.18 30);
-  --radius: 0.625rem;
-  --sidebar: oklch(0.14 0.01 250);
-  --sidebar-foreground: oklch(0.97 0.005 250);
-  --sidebar-primary: oklch(0.85 0.12 85);
-  --sidebar-primary-foreground: oklch(0.12 0.01 250);
-  --sidebar-accent: oklch(0.20 0.015 250);
-  --sidebar-accent-foreground: oklch(0.97 0.005 250);
-  --sidebar-border: oklch(0.24 0.015 250);
-  --sidebar-ring: oklch(0.85 0.12 85);
+  --background: #09090b;
+  --foreground: #fafafa;
+  --card: #18181b;
+  --card-foreground: #fafafa;
+  --popover: #18181b;
+  --popover-foreground: #fafafa;
+  --primary: #a78bfa;
+  --primary-foreground: #09090b;
+  --secondary: #27272a;
+  --secondary-foreground: #fafafa;
+  --muted: #27272a;
+  --muted-foreground: #a1a1aa;
+  --accent: #3f3f46;
+  --accent-foreground: #fafafa;
+  --destructive: #ef4444;
+  --border: #27272a;
+  --input: #27272a;
+  --ring: #a78bfa;
+  --chart-1: #a78bfa;
+  --chart-2: #6366f1;
+  --chart-3: #22d3ee;
+  --chart-4: #f472b6;
+  --chart-5: #fbbf24;
+  --radius: 0.75rem;
+  --sidebar: #0f0f12;
+  --sidebar-foreground: #fafafa;
+  --sidebar-primary: #a78bfa;
+  --sidebar-primary-foreground: #09090b;
+  --sidebar-accent: #27272a;
+  --sidebar-accent-foreground: #fafafa;
+  --sidebar-border: #27272a;
+  --sidebar-ring: #a78bfa;
 }
 
 @layer base {
@@ -93,4 +93,84 @@
   html {
     @apply font-sans;
   }
+}
+
+/* Shimmer animation for CTA buttons */
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.shimmer-button {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(90deg, #a78bfa 0%, #8b5cf6 50%, #a78bfa 100%);
+  background-size: 200% 100%;
+  animation: shimmer 3s ease-in-out infinite;
+}
+
+.shimmer-button::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.15),
+    transparent
+  );
+  background-size: 200% 100%;
+  animation: shimmer 2s ease-in-out infinite;
+}
+
+/* Card glow effect on hover */
+.glow-card {
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.glow-card::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, transparent 40%, rgba(167, 139, 250, 0) 50%, transparent 60%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.glow-card:hover::before {
+  background: linear-gradient(135deg, #6366f1 0%, #a78bfa 50%, #8b5cf6 100%);
+  opacity: 1;
+}
+
+.glow-card:hover {
+  box-shadow: 
+    0 0 20px rgba(167, 139, 250, 0.15),
+    0 0 40px rgba(99, 102, 241, 0.1);
+}
+
+/* Mesh gradient background */
+.mesh-gradient {
+  background: 
+    radial-gradient(ellipse 80% 50% at 50% -20%, rgba(99, 102, 241, 0.3), transparent),
+    radial-gradient(ellipse 60% 40% at 80% 50%, rgba(139, 92, 246, 0.2), transparent),
+    radial-gradient(ellipse 50% 30% at 20% 60%, rgba(99, 102, 241, 0.15), transparent);
+}
+
+/* Gradient text */
+.gradient-text {
+  background: linear-gradient(135deg, #a78bfa 0%, #6366f1 50%, #8b5cf6 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }

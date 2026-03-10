@@ -177,8 +177,8 @@ export default function UploadPage() {
       {/* Upload area */}
       {state === "idle" || state === "error" ? (
         <Card
-          className={`border-dashed cursor-pointer transition-all bg-card/40 ${
-            dragOver ? "border-primary bg-primary/5" : "border-border/50"
+          className={`glow-card border-dashed cursor-pointer transition-all bg-zinc-900/50 border-zinc-800 ${
+            dragOver ? "border-violet-500 bg-violet-500/5" : ""
           }`}
           onDragOver={(e) => {
             e.preventDefault();
@@ -189,8 +189,8 @@ export default function UploadPage() {
           onClick={() => document.getElementById("pdf-input")?.click()}
         >
           <CardHeader className="text-center py-12">
-            <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-primary/10">
-              <FileText className="h-8 w-8 text-primary" />
+            <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-violet-500/20 to-indigo-500/20 border border-violet-500/20">
+              <FileText className="h-8 w-8 text-violet-400" />
             </div>
             <CardTitle className="text-xl">
               Drag & drop your CAS PDF here
@@ -218,9 +218,9 @@ export default function UploadPage() {
 
       {/* Uploading state */}
       {state === "uploading" && (
-        <Card className="bg-card/60">
+        <Card className="glow-card bg-zinc-900/50 border-zinc-800">
           <CardContent className="py-16 text-center">
-            <Spinner className="h-8 w-8 mx-auto mb-4 text-primary" />
+            <Spinner className="h-8 w-8 mx-auto mb-4 text-violet-400" />
             <p className="text-lg font-medium text-foreground">
               Extracting text from {fileName}...
             </p>
@@ -233,10 +233,10 @@ export default function UploadPage() {
 
       {/* Password prompt */}
       {state === "needsPassword" && (
-        <Card className="bg-card/60">
+        <Card className="glow-card bg-zinc-900/50 border-zinc-800">
           <CardHeader className="text-center">
-            <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-amber-500/10">
-              <Lock className="h-8 w-8 text-amber-500" />
+            <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-amber-500/20 to-orange-500/20 border border-amber-500/20">
+              <Lock className="h-8 w-8 text-amber-400" />
             </div>
             <CardTitle className="text-xl">Password Protected PDF</CardTitle>
             <CardDescription>
@@ -266,7 +266,7 @@ export default function UploadPage() {
                 </Button>
                 <Button
                   type="submit"
-                  className="bg-primary hover:bg-primary/90 text-primary-foreground font-medium"
+                  className="shimmer-button text-zinc-950 font-medium border-0"
                   disabled={!password.trim()}
                 >
                   Unlock & Extract
@@ -301,13 +301,13 @@ export default function UploadPage() {
               <Button
                 onClick={handleSave}
                 disabled={state === "saving"}
-                className="bg-primary hover:bg-primary/90 text-primary-foreground font-medium"
+                className="shimmer-button text-zinc-950 font-medium border-0"
               >
                 {state === "saving" ? "Saving..." : "Save & Continue"}
               </Button>
             </div>
           </div>
-          <Card className="bg-card/60">
+          <Card className="glow-card bg-zinc-900/50 border-zinc-800">
             <CardContent className="p-4">
               <pre className="whitespace-pre-wrap text-xs font-mono max-h-[500px] overflow-y-auto leading-relaxed text-muted-foreground">
                 {extractedText}
@@ -319,10 +319,10 @@ export default function UploadPage() {
 
       {/* Saved state */}
       {state === "saved" && (
-        <Card className="bg-card/60">
+        <Card className="glow-card bg-zinc-900/50 border-zinc-800">
           <CardContent className="py-16 text-center">
-            <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-chart-3/10">
-              <CheckCircle2 className="h-8 w-8 text-chart-3" />
+            <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-cyan-500/20 to-teal-500/20 border border-cyan-500/20">
+              <CheckCircle2 className="h-8 w-8 text-cyan-400" />
             </div>
             <p className="text-lg font-medium text-foreground">
               PDF saved successfully!

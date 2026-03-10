@@ -22,15 +22,15 @@ export function UserNav({ user }: { user: User | null }) {
           <img
             src={avatar}
             alt={name ?? "User"}
-            className="h-8 w-8 rounded-full ring-2 ring-border/50"
+            className="h-8 w-8 rounded-full ring-2 ring-violet-500/30"
             referrerPolicy="no-referrer"
           />
         ) : (
-          <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary/10 text-primary text-xs font-medium">
+          <div className="flex h-8 w-8 items-center justify-center rounded-full bg-violet-500/10 text-violet-400 text-xs font-medium">
             {(name ?? "U").charAt(0).toUpperCase()}
           </div>
         )}
-        <span className="hidden text-sm font-medium text-foreground sm:inline-block">
+        <span className="hidden text-sm font-medium text-zinc-100 sm:inline-block">
           {name}
         </span>
       </div>
@@ -39,7 +39,7 @@ export function UserNav({ user }: { user: User | null }) {
           variant="ghost"
           size="sm"
           type="submit"
-          className="text-muted-foreground hover:text-foreground"
+          className="text-zinc-400 hover:text-zinc-100"
         >
           Log out
         </Button>

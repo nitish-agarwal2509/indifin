@@ -23,18 +23,18 @@ export default async function DashboardLayout({
   } = await supabase.auth.getUser();
 
   return (
-    <div className="min-h-screen flex flex-col bg-background">
-      <header className="sticky top-0 z-50 border-b border-border/40 bg-background/90 backdrop-blur-xl">
+    <div className="min-h-screen flex flex-col bg-[#09090b]">
+      <header className="sticky top-0 z-50 border-b border-zinc-800/50 bg-[#09090b]/90 backdrop-blur-xl">
         <div className="container mx-auto flex h-16 items-center justify-between px-6">
           <div className="flex items-center gap-8">
             <Link href="/" className="flex items-center gap-3">
-              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/10">
-                <BarChart3 className="h-4 w-4 text-primary" />
+              <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-violet-500/20 to-indigo-500/20 border border-violet-500/20">
+                <BarChart3 className="h-4.5 w-4.5 text-violet-400" />
               </div>
-              <span className="text-lg font-semibold tracking-tight text-foreground">
+              <span className="text-lg font-semibold tracking-tight text-zinc-100">
                 IndiFin
               </span>
-              <span className="rounded-full bg-primary/10 px-2 py-0.5 text-[10px] font-medium uppercase tracking-wider text-primary">
+              <span className="rounded-full bg-violet-500/10 border border-violet-500/20 px-2.5 py-0.5 text-[10px] font-medium uppercase tracking-wider text-violet-400">
                 Beta
               </span>
             </Link>
@@ -44,7 +44,7 @@ export default async function DashboardLayout({
                   <Button
                     variant="ghost"
                     size="sm"
-                    className="text-muted-foreground hover:text-foreground hover:bg-accent font-medium"
+                    className="text-zinc-400 hover:text-zinc-100 hover:bg-zinc-800/50 font-medium"
                   >
                     {link.label}
                   </Button>

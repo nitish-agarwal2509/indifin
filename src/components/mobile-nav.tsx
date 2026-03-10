@@ -45,14 +45,14 @@ export function MobileNav({ links }: { links: NavLink[] }) {
         </svg>
       </Button>
       {open && (
-        <div className="absolute top-16 left-0 right-0 bg-background/95 backdrop-blur-xl border-b border-border/50 z-50 p-4">
+        <div className="absolute top-16 left-0 right-0 bg-[#09090b]/95 backdrop-blur-xl border-b border-zinc-800/50 z-50 p-4">
           <nav className="flex flex-col gap-1">
             {links.map((link) => (
               <Link key={link.href} href={link.href} onClick={() => setOpen(false)}>
                 <Button
                   variant={pathname === link.href ? "secondary" : "ghost"}
                   size="sm"
-                  className={`w-full justify-start ${pathname === link.href ? "text-primary bg-primary/10" : "text-muted-foreground hover:text-foreground"}`}
+                  className={`w-full justify-start ${pathname === link.href ? "text-violet-400 bg-violet-500/10" : "text-zinc-400 hover:text-zinc-100"}`}
                 >
                   {link.label}
                 </Button>

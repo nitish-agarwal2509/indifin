@@ -29,43 +29,45 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="relative flex min-h-screen items-center justify-center px-6 bg-background">
-      {/* Subtle background gradient */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-primary/[0.04] rounded-full blur-[100px] pointer-events-none" />
+    <div className="relative flex min-h-screen items-center justify-center px-6 bg-[#09090b]">
+      {/* Mesh gradient background */}
+      <div className="absolute inset-0 mesh-gradient pointer-events-none" />
+      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-violet-600/15 rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-indigo-600/10 rounded-full blur-[100px] pointer-events-none" />
 
       <div className="relative w-full max-w-sm">
         {/* Logo */}
         <div className="text-center mb-10">
           <Link href="/" className="inline-flex flex-col items-center gap-3">
-            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10">
-              <BarChart3 className="h-6 w-6 text-primary" />
+            <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-violet-500/20 to-indigo-500/20 border border-violet-500/20">
+              <BarChart3 className="h-7 w-7 text-violet-400" />
             </div>
-            <span className="text-2xl font-semibold tracking-tight text-foreground">
+            <span className="text-2xl font-semibold tracking-tight text-zinc-100">
               IndiFin
             </span>
           </Link>
         </div>
 
         {/* Card */}
-        <div className="rounded-2xl border border-border/50 bg-card/60 backdrop-blur-xl p-8">
+        <div className="glow-card rounded-3xl border border-zinc-800 bg-zinc-900/60 backdrop-blur-xl p-8">
           <div className="text-center mb-8">
-            <h1 className="text-2xl font-semibold text-foreground">
+            <h1 className="text-2xl font-semibold text-zinc-100">
               Welcome back
             </h1>
-            <p className="text-sm text-muted-foreground mt-2">
+            <p className="text-sm text-zinc-500 mt-2">
               Sign in to track your mutual fund portfolio
             </p>
           </div>
 
           <div className="flex flex-col gap-4">
             {error && (
-              <div className="rounded-lg bg-destructive/10 border border-destructive/20 p-3">
-                <p className="text-sm text-destructive text-center">{error}</p>
+              <div className="rounded-xl bg-red-500/10 border border-red-500/20 p-3">
+                <p className="text-sm text-red-400 text-center">{error}</p>
               </div>
             )}
 
             <Button
-              className="w-full h-12 bg-primary hover:bg-primary/90 text-primary-foreground font-medium shadow-lg shadow-primary/20 transition-all hover:shadow-xl hover:shadow-primary/25"
+              className="shimmer-button w-full h-12 text-zinc-950 font-medium border-0 shadow-xl shadow-violet-500/20 hover:shadow-violet-500/30 transition-shadow"
               onClick={handleGoogleLogin}
               disabled={loading}
             >
@@ -91,9 +93,9 @@ export default function LoginPage() {
             </Button>
           </div>
 
-          <div className="flex items-center justify-center gap-2 mt-8 pt-6 border-t border-border/40">
-            <Shield className="h-4 w-4 text-muted-foreground" />
-            <p className="text-xs text-muted-foreground">
+          <div className="flex items-center justify-center gap-2 mt-8 pt-6 border-t border-zinc-800/50">
+            <Shield className="h-4 w-4 text-zinc-600" />
+            <p className="text-xs text-zinc-500">
               Your data is processed securely and never stored
             </p>
           </div>
@@ -103,7 +105,7 @@ export default function LoginPage() {
         <div className="text-center mt-6">
           <Link
             href="/"
-            className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+            className="text-sm text-zinc-500 hover:text-zinc-300 transition-colors"
           >
             &larr; Back to home
           </Link>
