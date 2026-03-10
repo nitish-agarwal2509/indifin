@@ -27,11 +27,6 @@ export default function LoginPage() {
     }
   }
 
-  async function handleDemoLogin() {
-    setLoading(true);
-    router.push("/dashboard");
-  }
-
   return (
     <div className="relative flex min-h-screen items-center justify-center px-4">
       {/* Background glow */}
