@@ -96,6 +96,7 @@ docs/
 - **Buttons:** Primary CTAs use `shimmer-button` class (animated violet gradient, dark text)
 - **Icons:** Lucide icons with `strokeWidth={1.5}`, muted `text-zinc-400` color
 - **Typography:** Gradient text via `.gradient-text` class (violet → indigo → purple)
+- **Responsive:** Mobile-first with `sm:` breakpoints — smaller padding/text/icons on mobile, full desktop layout at `sm:` (640px+)
 - **Animations:** `.scroll-reveal` (scroll-triggered fade-up), `.animate-marquee` (trust bar), `.shimmer-button` (CTA glow)
 - **Charts:** Violet (#a78bfa) for portfolio, indigo (#6366f1) for Nifty; dark tooltips
 - **Pie chart palette:** violet, indigo, cyan, pink, amber
