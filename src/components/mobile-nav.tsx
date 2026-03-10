@@ -52,7 +52,7 @@ export function MobileNav({ links }: { links: NavLink[] }) {
                 <Button
                   variant={pathname === link.href ? "secondary" : "ghost"}
                   size="sm"
-                  className={`w-full justify-start ${pathname === link.href ? "text-emerald-400 bg-emerald-500/10" : "text-muted-foreground hover:text-foreground"}`}
+                  className={`w-full justify-start ${pathname === link.href ? "text-primary bg-primary/10" : "text-muted-foreground hover:text-foreground"}`}
                 >
                   {link.label}
                 </Button>

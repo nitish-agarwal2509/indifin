@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { createBrowserClient } from "@supabase/ssr";
+import { Sparkles, AlertCircle, Lightbulb, CheckCircle2 } from "lucide-react";
 
 type Insight = {
   type: "summary" | "warning" | "suggestion" | "positive";
@@ -26,29 +27,39 @@ const typeStyles: Record<
   string,
   {
     border: string;
+    bg: string;
     badge: string;
     badgeVariant: "default" | "secondary" | "destructive" | "outline";
+    icon: typeof Sparkles;
   }
 > = {
   summary: {
-    border: "border-l-cyan-400",
+    border: "border-l-chart-2",
+    bg: "bg-chart-2/5",
     badge: "Summary",
     badgeVariant: "default",
+    icon: Sparkles,
   },
   positive: {
-    border: "border-l-emerald-400",
+    border: "border-l-chart-3",
+    bg: "bg-chart-3/5",
     badge: "Positive",
     badgeVariant: "secondary",
+    icon: CheckCircle2,
   },
   warning: {
-    border: "border-l-amber-400",
+    border: "border-l-amber-500",
+    bg: "bg-amber-500/5",
     badge: "Warning",
     badgeVariant: "destructive",
+    icon: AlertCircle,
   },
   suggestion: {
-    border: "border-l-violet-400",
+    border: "border-l-primary",
+    bg: "bg-primary/5",
     badge: "Suggestion",
     badgeVariant: "outline",
+    icon: Lightbulb,
   },
 };
 
@@ -120,8 +131,10 @@ export default function InsightsPage() {
     return (
       <div className="space-y-8">
         <div>
-          <h1 className="text-3xl font-bold">AI Insights</h1>
-          <p className="text-muted-foreground mt-1">
+          <h1 className="text-3xl font-semibold text-foreground">
+            AI Insights
+          </h1>
+          <p className="text-muted-foreground mt-2">
             Upload a CAS statement first to get AI-powered insights.
           </p>
         </div>
@@ -131,14 +144,21 @@ export default function InsightsPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-bold">AI Insights</h1>
-          <p className="text-muted-foreground mt-1">
+          <h1 className="text-3xl font-semibold text-foreground">
+            AI Insights
+          </h1>
+          <p className="text-muted-foreground mt-2">
             AI-powered analysis and recommendations for your portfolio.
           </p>
         </div>
-        <Button onClick={generateInsights} disabled={state === "loading"} className="bg-emerald-500 hover:bg-emerald-400 text-black font-semibold">
+        <Button
+          onClick={generateInsights}
+          disabled={state === "loading"}
+          className="bg-primary hover:bg-primary/90 text-primary-foreground font-medium"
+        >
+          <Sparkles className="mr-2 h-4 w-4" />
           {state === "loading"
             ? "Analyzing..."
             : state === "done"
@@ -148,12 +168,15 @@ export default function InsightsPage() {
       </div>
 
       {state === "idle" && (
-        <Card className="border-dashed">
-          <CardContent className="py-12 text-center">
-            <p className="text-lg font-medium">
+        <Card className="border-dashed border-border/50 bg-card/40">
+          <CardContent className="py-16 text-center">
+            <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-primary/10">
+              <Sparkles className="h-8 w-8 text-primary" />
+            </div>
+            <p className="text-lg font-medium text-foreground">
               Ready to analyze your portfolio
             </p>
-            <p className="text-sm text-muted-foreground mt-2">
+            <p className="text-sm text-muted-foreground mt-2 max-w-md mx-auto">
               Click &quot;Generate Insights&quot; to get AI-powered
               recommendations based on your holdings and transactions.
             </p>
@@ -162,10 +185,10 @@ export default function InsightsPage() {
       )}
 
       {state === "loading" && (
-        <Card>
-          <CardContent className="py-12 text-center">
+        <Card className="bg-card/60">
+          <CardContent className="py-16 text-center">
             <Spinner className="h-8 w-8 mx-auto mb-4 text-primary" />
-            <p className="text-lg font-medium">
+            <p className="text-lg font-medium text-foreground">
               Analyzing your portfolio with AI...
             </p>
             <p className="text-sm text-muted-foreground mt-2">
@@ -176,8 +199,11 @@ export default function InsightsPage() {
       )}
 
       {state === "error" && (
-        <Card>
-          <CardContent className="py-12 text-center">
+        <Card className="bg-card/60">
+          <CardContent className="py-16 text-center">
+            <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-destructive/10">
+              <AlertCircle className="h-8 w-8 text-destructive" />
+            </div>
             <p className="text-destructive font-medium">{error}</p>
             <Button
               variant="outline"
@@ -194,25 +220,30 @@ export default function InsightsPage() {
         <div className="grid gap-4">
           {insights.map((insight, i) => {
             const style = typeStyles[insight.type] || typeStyles.summary;
+            const IconComponent = style.icon;
             return (
-              <Card key={i} className={`border-l-4 ${style.border}`}>
+              <Card
+                key={i}
+                className={`border-l-4 ${style.border} ${style.bg} bg-card/60`}
+              >
                 <CardHeader className="pb-2">
-                  <div className="flex items-center justify-between">
-                    <CardTitle className="text-base">
-                      {insight.title}
-                    </CardTitle>
-                    <div className="flex gap-2">
-                      <Badge variant={style.badgeVariant}>
-                        {style.badge}
-                      </Badge>
-                      <Badge variant="outline" className="text-xs">
+                  <div className="flex items-start justify-between gap-4">
+                    <div className="flex items-center gap-3">
+                      <IconComponent className="h-5 w-5 text-muted-foreground shrink-0" />
+                      <CardTitle className="text-base font-medium">
+                        {insight.title}
+                      </CardTitle>
+                    </div>
+                    <div className="flex gap-2 shrink-0">
+                      <Badge variant={style.badgeVariant}>{style.badge}</Badge>
+                      <Badge variant="outline" className="text-xs capitalize">
                         {insight.priority}
                       </Badge>
                     </div>
                   </div>
                 </CardHeader>
                 <CardContent>
-                  <CardDescription className="text-sm leading-relaxed">
+                  <CardDescription className="text-sm leading-relaxed ml-8">
                     {insight.description}
                   </CardDescription>
                 </CardContent>

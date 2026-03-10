@@ -19,6 +19,7 @@ import { Badge } from "@/components/ui/badge";
 import { createClient } from "@/lib/supabase/server";
 import { AllocationChart } from "@/components/allocation-chart";
 import { calculateXIRR, buildCashFlows } from "@/lib/xirr";
+import { Upload, TrendingUp, TrendingDown } from "lucide-react";
 
 function formatCurrency(n: number): string {
   return new Intl.NumberFormat("en-IN", {
@@ -101,22 +102,29 @@ export default async function DashboardPage() {
     return (
       <div className="space-y-8">
         <div>
-          <h1 className="text-3xl font-bold">Portfolio Dashboard</h1>
-          <p className="text-muted-foreground mt-1">
+          <h1 className="text-3xl font-semibold text-foreground">
+            Portfolio Dashboard
+          </h1>
+          <p className="text-muted-foreground mt-2">
             Upload your CAS statement to get started.
           </p>
         </div>
-        <Card className="border-dashed border-border/50">
-          <CardHeader className="text-center">
-            <CardTitle>No portfolio data yet</CardTitle>
-            <CardDescription>
+        <Card className="border-dashed border-border/50 bg-card/40">
+          <CardHeader className="text-center pb-2">
+            <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-primary/10">
+              <Upload className="h-7 w-7 text-primary" />
+            </div>
+            <CardTitle className="text-xl">No portfolio data yet</CardTitle>
+            <CardDescription className="max-w-md mx-auto">
               Upload your Consolidated Account Statement (CAS) PDF to see your
               portfolio analysis and Nifty 50 comparison.
             </CardDescription>
           </CardHeader>
-          <CardContent className="flex justify-center">
+          <CardContent className="flex justify-center pb-8">
             <Link href="/dashboard/upload">
-              <Button className="bg-emerald-500 hover:bg-emerald-400 text-black font-semibold">Upload CAS PDF</Button>
+              <Button className="bg-primary hover:bg-primary/90 text-primary-foreground font-medium px-6">
+                Upload CAS PDF
+              </Button>
             </Link>
           </CardContent>
         </Card>
@@ -170,61 +178,77 @@ export default async function DashboardPage() {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-bold">Portfolio Dashboard</h1>
-          <p className="text-muted-foreground mt-1">
+          <h1 className="text-3xl font-semibold text-foreground">
+            Portfolio Dashboard
+          </h1>
+          <p className="text-muted-foreground mt-2">
             {p.investor_name} &middot; PAN: {p.pan} &middot; Period:{" "}
             {p.cas_period_from} to {p.cas_period_to}
           </p>
         </div>
         <Link href="/dashboard/upload">
-          <Button variant="outline" className="border-border/50 hover:border-emerald-500/30 hover:bg-emerald-500/5">Upload New CAS</Button>
+          <Button
+            variant="outline"
+            className="border-border/50 hover:border-primary/30 hover:bg-primary/5"
+          >
+            Upload New CAS
+          </Button>
         </Link>
       </div>
 
       {/* Summary Cards */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-        <Card>
+        <Card className="bg-card/60">
           <CardContent className="pt-6">
             <p className="text-sm text-muted-foreground">Total Invested</p>
-            <p className="text-2xl font-bold">
+            <p className="text-2xl font-semibold text-foreground">
               {formatCurrency(p.total_invested)}
             </p>
           </CardContent>
         </Card>
-        <Card>
+        <Card className="bg-card/60">
           <CardContent className="pt-6">
             <p className="text-sm text-muted-foreground">Current Value</p>
-            <p className="text-2xl font-bold">
+            <p className="text-2xl font-semibold text-foreground">
               {formatCurrency(p.total_current_value)}
             </p>
           </CardContent>
         </Card>
-        <Card>
+        <Card className="bg-card/60">
           <CardContent className="pt-6">
             <p className="text-sm text-muted-foreground">Total Gain/Loss</p>
+            <div className="flex items-center gap-2">
+              <p
+                className={`text-2xl font-semibold ${p.total_gain_loss >= 0 ? "text-chart-3" : "text-destructive"}`}
+              >
+                {formatCurrency(p.total_gain_loss)}
+              </p>
+              {p.total_gain_loss >= 0 ? (
+                <TrendingUp className="h-4 w-4 text-chart-3" />
+              ) : (
+                <TrendingDown className="h-4 w-4 text-destructive" />
+              )}
+            </div>
             <p
-              className={`text-2xl font-bold ${p.total_gain_loss >= 0 ? "text-emerald-400" : "text-rose-400"}`}
-            >
-              {formatCurrency(p.total_gain_loss)}
-            </p>
-            <p
-              className={`text-xs ${totalReturnPct >= 0 ? "text-emerald-400" : "text-rose-400"}`}
+              className={`text-xs mt-1 ${totalReturnPct >= 0 ? "text-chart-3" : "text-destructive"}`}
             >
               {formatPercent(totalReturnPct)}
             </p>
           </CardContent>
         </Card>
-        <Card>
+        <Card className="bg-card/60">
           <CardContent className="pt-6">
             <p className="text-sm text-muted-foreground">Portfolio XIRR</p>
             <p
-              className={`text-2xl font-bold ${portfolioXirr != null && portfolioXirr >= 0 ? "text-emerald-400" : portfolioXirr != null ? "text-rose-400" : ""}`}
+              className={`text-2xl font-semibold ${portfolioXirr != null && portfolioXirr >= 0 ? "text-primary" : portfolioXirr != null ? "text-destructive" : "text-foreground"}`}
             >
               {portfolioXirr != null ? `${portfolioXirr}%` : "N/A"}
             </p>
-            <p className="text-xs text-muted-foreground">Calculated</p>
+            <p className="text-xs text-muted-foreground mt-1">
+              Time-weighted returns
+            </p>
           </CardContent>
         </Card>
       </div>
@@ -232,9 +256,9 @@ export default async function DashboardPage() {
       {/* Holdings Table + Allocation Chart */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Holdings Table */}
-        <Card className="lg:col-span-2">
+        <Card className="lg:col-span-2 bg-card/60">
           <CardHeader>
-            <CardTitle className="text-lg">
+            <CardTitle className="text-lg font-semibold">
               Holdings ({schemes.length})
             </CardTitle>
             <CardDescription>
@@ -285,14 +309,14 @@ export default async function DashboardPage() {
                         <span
                           className={
                             s.gain_loss >= 0
-                              ? "text-emerald-400"
-                              : "text-rose-400"
+                              ? "text-chart-3"
+                              : "text-destructive"
                           }
                         >
                           {formatCurrency(s.gain_loss)}
                         </span>
                         <p
-                          className={`text-xs ${returnPct >= 0 ? "text-emerald-400" : "text-rose-400"}`}
+                          className={`text-xs ${returnPct >= 0 ? "text-chart-3" : "text-destructive"}`}
                         >
                           {formatPercent(returnPct)}
                         </p>
@@ -302,14 +326,14 @@ export default async function DashboardPage() {
                           <span
                             className={
                               s.calculatedXirr >= 0
-                                ? "text-emerald-400"
-                                : "text-rose-400"
+                                ? "text-primary"
+                                : "text-destructive"
                             }
                           >
                             {s.calculatedXirr}%
                           </span>
                         ) : (
-                          "—"
+                          <span className="text-muted-foreground">—</span>
                         )}
                       </TableCell>
                     </TableRow>
@@ -322,9 +346,11 @@ export default async function DashboardPage() {
         </Card>
 
         {/* Asset Allocation Pie Chart */}
-        <Card>
+        <Card className="bg-card/60">
           <CardHeader>
-            <CardTitle className="text-lg">Asset Allocation</CardTitle>
+            <CardTitle className="text-lg font-semibold">
+              Asset Allocation
+            </CardTitle>
             <CardDescription>By category</CardDescription>
           </CardHeader>
           <CardContent>

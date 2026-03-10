@@ -17,25 +17,30 @@ export function UserNav({ user }: { user: User | null }) {
 
   return (
     <div className="flex items-center gap-3">
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-2.5">
         {avatar ? (
           <img
             src={avatar}
             alt={name ?? "User"}
-            className="h-7 w-7 rounded-full"
+            className="h-8 w-8 rounded-full ring-2 ring-border/50"
             referrerPolicy="no-referrer"
           />
         ) : (
-          <div className="flex h-7 w-7 items-center justify-center rounded-full bg-primary text-primary-foreground text-xs font-medium">
+          <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary/10 text-primary text-xs font-medium">
             {(name ?? "U").charAt(0).toUpperCase()}
           </div>
         )}
-        <span className="hidden text-sm font-medium sm:inline-block">
+        <span className="hidden text-sm font-medium text-foreground sm:inline-block">
           {name}
         </span>
       </div>
       <form action="/auth/signout" method="POST">
-        <Button variant="ghost" size="sm" type="submit">
+        <Button
+          variant="ghost"
+          size="sm"
+          type="submit"
+          className="text-muted-foreground hover:text-foreground"
+        >
           Log out
         </Button>
       </form>

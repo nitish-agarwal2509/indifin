@@ -1,9 +1,9 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 import { UserNav } from "@/components/user-nav";
 import { MobileNav } from "@/components/mobile-nav";
 import { createClient } from "@/lib/supabase/server";
+import { BarChart3 } from "lucide-react";
 
 const navLinks = [
   { href: "/dashboard", label: "Overview" },
@@ -23,35 +23,42 @@ export default async function DashboardLayout({
   } = await supabase.auth.getUser();
 
   return (
-    <div className="min-h-screen flex flex-col">
-      <header className="sticky top-0 z-50 border-b border-border/50 bg-background/80 backdrop-blur-xl">
-        <div className="container mx-auto flex h-16 items-center justify-between px-4">
-          <div className="flex items-center gap-6">
-            <Link href="/" className="flex items-center gap-2">
-              <span className="text-xl font-bold tracking-tight bg-gradient-to-r from-emerald-400 to-teal-300 bg-clip-text text-transparent">
+    <div className="min-h-screen flex flex-col bg-background">
+      <header className="sticky top-0 z-50 border-b border-border/40 bg-background/90 backdrop-blur-xl">
+        <div className="container mx-auto flex h-16 items-center justify-between px-6">
+          <div className="flex items-center gap-8">
+            <Link href="/" className="flex items-center gap-3">
+              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/10">
+                <BarChart3 className="h-4 w-4 text-primary" />
+              </div>
+              <span className="text-lg font-semibold tracking-tight text-foreground">
                 IndiFin
               </span>
-              <Badge variant="outline" className="text-[10px] border-emerald-500/30 text-emerald-400">
-                BETA
-              </Badge>
+              <span className="rounded-full bg-primary/10 px-2 py-0.5 text-[10px] font-medium uppercase tracking-wider text-primary">
+                Beta
+              </span>
             </Link>
             <nav className="hidden items-center gap-1 sm:flex">
               {navLinks.map((link) => (
                 <Link key={link.href} href={link.href}>
-                  <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-foreground hover:bg-emerald-500/5">
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="text-muted-foreground hover:text-foreground hover:bg-accent font-medium"
+                  >
                     {link.label}
                   </Button>
                 </Link>
               ))}
             </nav>
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-3">
             <UserNav user={user} />
             <MobileNav links={navLinks} />
           </div>
         </div>
       </header>
-      <main className="flex-1 container mx-auto px-4 py-8">{children}</main>
+      <main className="flex-1 container mx-auto px-6 py-8">{children}</main>
     </div>
   );
 }

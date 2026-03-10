@@ -13,6 +13,7 @@ import {
   buildComparisonTimeSeries,
 } from "@/lib/nifty";
 import { calculateXIRR, buildCashFlows } from "@/lib/xirr";
+import { TrendingUp, TrendingDown, BarChart3 } from "lucide-react";
 
 function formatCurrency(n: number): string {
   return new Intl.NumberFormat("en-IN", {
@@ -67,8 +68,10 @@ export default async function ComparePage() {
     return (
       <div className="space-y-8">
         <div>
-          <h1 className="text-3xl font-bold">Portfolio vs Nifty 50</h1>
-          <p className="text-muted-foreground mt-1">
+          <h1 className="text-3xl font-semibold text-foreground">
+            Portfolio vs Nifty 50
+          </h1>
+          <p className="text-muted-foreground mt-2">
             Upload a CAS statement first to compare your portfolio.
           </p>
         </div>
@@ -82,8 +85,12 @@ export default async function ComparePage() {
     return (
       <div className="space-y-8">
         <div>
-          <h1 className="text-3xl font-bold">Portfolio vs Nifty 50</h1>
-          <p className="text-muted-foreground mt-1">No transaction data found.</p>
+          <h1 className="text-3xl font-semibold text-foreground">
+            Portfolio vs Nifty 50
+          </h1>
+          <p className="text-muted-foreground mt-2">
+            No transaction data found.
+          </p>
         </div>
       </div>
     );
@@ -106,8 +113,10 @@ export default async function ComparePage() {
     return (
       <div className="space-y-8">
         <div>
-          <h1 className="text-3xl font-bold">Portfolio vs Nifty 50</h1>
-          <p className="text-destructive mt-1">
+          <h1 className="text-3xl font-semibold text-foreground">
+            Portfolio vs Nifty 50
+          </h1>
+          <p className="text-destructive mt-2">
             {error || "Could not fetch Nifty 50 data. Please try again later."}
           </p>
         </div>
@@ -151,27 +160,29 @@ export default async function ComparePage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-3xl font-bold">Portfolio vs Nifty 50</h1>
-        <p className="text-muted-foreground mt-1">
+        <h1 className="text-3xl font-semibold text-foreground">
+          Portfolio vs Nifty 50
+        </h1>
+        <p className="text-muted-foreground mt-2">
           What if you had invested the same amounts in a Nifty 50 index fund?
         </p>
       </div>
 
       {/* Summary Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        <Card>
+        <Card className="bg-card/60">
           <CardContent className="pt-6">
             <p className="text-sm text-muted-foreground">Your Portfolio</p>
-            <p className="text-2xl font-bold text-cyan-400">
+            <p className="text-2xl font-semibold text-chart-2">
               {formatCurrency(portfolio.total_current_value)}
             </p>
-            <p className="text-sm text-muted-foreground mt-1">
+            <p className="text-sm text-muted-foreground mt-2">
               XIRR:{" "}
               <span
                 className={
                   portfolioXirrPct != null && portfolioXirrPct >= 0
-                    ? "text-emerald-400 font-medium"
-                    : "text-rose-400 font-medium"
+                    ? "text-chart-3 font-medium"
+                    : "text-destructive font-medium"
                 }
               >
                 {portfolioXirrPct != null ? `${portfolioXirrPct}%` : "N/A"}
@@ -179,21 +190,19 @@ export default async function ComparePage() {
             </p>
           </CardContent>
         </Card>
-        <Card>
+        <Card className="bg-card/60">
           <CardContent className="pt-6">
-            <p className="text-sm text-muted-foreground">
-              Nifty 50 Equivalent
-            </p>
-            <p className="text-2xl font-bold text-amber-400">
+            <p className="text-sm text-muted-foreground">Nifty 50 Equivalent</p>
+            <p className="text-2xl font-semibold text-primary">
               {formatCurrency(niftyResult.currentValue)}
             </p>
-            <p className="text-sm text-muted-foreground mt-1">
+            <p className="text-sm text-muted-foreground mt-2">
               XIRR:{" "}
               <span
                 className={
                   niftyXirrPct != null && niftyXirrPct >= 0
-                    ? "text-emerald-400 font-medium"
-                    : "text-rose-400 font-medium"
+                    ? "text-chart-3 font-medium"
+                    : "text-destructive font-medium"
                 }
               >
                 {niftyXirrPct != null ? `${niftyXirrPct}%` : "N/A"}
@@ -201,16 +210,23 @@ export default async function ComparePage() {
             </p>
           </CardContent>
         </Card>
-        <Card>
+        <Card className="bg-card/60">
           <CardContent className="pt-6">
             <p className="text-sm text-muted-foreground">Difference</p>
-            <p
-              className={`text-2xl font-bold ${portfolioBetter ? "text-emerald-400" : "text-rose-400"}`}
-            >
-              {portfolioBetter ? "+" : "-"}
-              {formatCurrency(diff)}
-            </p>
-            <p className="text-sm text-muted-foreground mt-1">
+            <div className="flex items-center gap-2">
+              <p
+                className={`text-2xl font-semibold ${portfolioBetter ? "text-chart-3" : "text-destructive"}`}
+              >
+                {portfolioBetter ? "+" : "-"}
+                {formatCurrency(diff)}
+              </p>
+              {portfolioBetter ? (
+                <TrendingUp className="h-5 w-5 text-chart-3" />
+              ) : (
+                <TrendingDown className="h-5 w-5 text-destructive" />
+              )}
+            </div>
+            <p className="text-sm text-muted-foreground mt-2">
               {portfolioBetter
                 ? "Your portfolio is ahead"
                 : "Nifty 50 would have done better"}
@@ -220,9 +236,9 @@ export default async function ComparePage() {
       </div>
 
       {/* Chart */}
-      <Card>
+      <Card className="bg-card/60">
         <CardHeader>
-          <CardTitle>Growth Comparison</CardTitle>
+          <CardTitle className="font-semibold">Growth Comparison</CardTitle>
           <CardDescription>
             Your portfolio value vs same investments in Nifty 50 over time
           </CardDescription>
@@ -233,11 +249,18 @@ export default async function ComparePage() {
       </Card>
 
       {/* Details */}
-      <Card>
+      <Card className="bg-card/60">
         <CardHeader>
-          <CardTitle className="text-lg">How this works</CardTitle>
+          <div className="flex items-center gap-3">
+            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10">
+              <BarChart3 className="h-5 w-5 text-primary" />
+            </div>
+            <CardTitle className="text-lg font-semibold">
+              How this works
+            </CardTitle>
+          </div>
         </CardHeader>
-        <CardContent className="text-sm text-muted-foreground space-y-2">
+        <CardContent className="text-sm text-muted-foreground space-y-3">
           <p>
             For each of your mutual fund transactions (SIPs, lump sums,
             redemptions), we simulate making the same investment in a Nifty 50

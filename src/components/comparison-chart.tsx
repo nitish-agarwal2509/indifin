@@ -54,10 +54,10 @@ export function ComparisonChart({ data }: { data: DataPoint[] }) {
         />
         <Tooltip
           contentStyle={{
-            backgroundColor: "rgba(15, 23, 42, 0.95)",
-            border: "1px solid rgba(255,255,255,0.1)",
-            borderRadius: "8px",
-            color: "#e2e8f0",
+            backgroundColor: "rgba(26, 29, 46, 0.95)",
+            border: "1px solid rgba(255,255,255,0.08)",
+            borderRadius: "10px",
+            color: "#f4f4f5",
           }}
           formatter={(value, name) => [
             formatCurrency(Number(value)),
@@ -74,14 +74,14 @@ export function ComparisonChart({ data }: { data: DataPoint[] }) {
         <Line
           type="monotone"
           dataKey="portfolio"
-          stroke="#34d399"
+          stroke="#6b8cae"
           strokeWidth={2.5}
           dot={false}
         />
         <Line
           type="monotone"
           dataKey="nifty"
-          stroke="#fbbf24"
+          stroke="#d4a574"
           strokeWidth={2.5}
           dot={false}
         />
