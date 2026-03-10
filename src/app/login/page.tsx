@@ -2,15 +2,12 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 import { Button } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator";
 
 export default function LoginPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const router = useRouter();
 
   async function handleGoogleLogin() {
     setLoading(true);
@@ -78,20 +75,6 @@ export default function LoginPage() {
               {loading ? "Signing in..." : "Continue with Google"}
             </Button>
 
-            <div className="flex items-center gap-4">
-              <Separator className="flex-1" />
-              <span className="text-xs text-muted-foreground">or</span>
-              <Separator className="flex-1" />
-            </div>
-
-            <Button
-              variant="outline"
-              className="w-full h-11 border-border/50 hover:border-emerald-500/30 hover:bg-emerald-500/5"
-              onClick={handleDemoLogin}
-              disabled={loading}
-            >
-              Skip to Dashboard (Demo)
-            </Button>
           </div>
 
           <p className="text-center text-xs text-muted-foreground mt-6">

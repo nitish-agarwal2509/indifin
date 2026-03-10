@@ -23,9 +23,9 @@ IndiFin is an Indian personal finance web app that lets users upload their mutua
 src/
 ├── app/                    # Next.js App Router pages
 │   ├── layout.tsx          # Root layout (fonts, metadata)
-│   ├── page.tsx            # Landing page
+│   ├── page.tsx            # Landing page (auth-aware, shows dashboard link if logged in)
 │   ├── globals.css         # Tailwind + shadcn theme variables
-│   ├── login/page.tsx      # Auth page (Google OAuth + demo bypass)
+│   ├── login/page.tsx      # Auth page (Google OAuth only)
 │   ├── auth/
 │   │   ├── callback/route.ts  # OAuth callback handler
 │   │   └── signout/route.ts   # Sign out handler

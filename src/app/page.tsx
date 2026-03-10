@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { createClient } from "@/lib/supabase/server";
 
 const features = [
   {
@@ -44,7 +45,10 @@ const steps = [
   { step: "04", title: "Insights", description: "View your dashboard with portfolio vs Nifty 50" },
 ];
 
-export default function HomePage() {
+export default async function HomePage() {
+  const supabase = await createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+  const isLoggedIn = !!user;
   return (
     <div className="min-h-screen flex flex-col">
       {/* Navbar */}
@@ -59,16 +63,26 @@ export default function HomePage() {
             </Badge>
           </div>
           <nav className="flex items-center gap-3">
-            <Link href="/login">
-              <Button variant="ghost" className="text-muted-foreground hover:text-foreground">
-                Log in
-              </Button>
-            </Link>
-            <Link href="/login">
-              <Button className="bg-emerald-500 hover:bg-emerald-400 text-black font-semibold">
-                Get Started
-              </Button>
-            </Link>
+            {isLoggedIn ? (
+              <Link href="/dashboard">
+                <Button className="bg-emerald-500 hover:bg-emerald-400 text-black font-semibold">
+                  Go to Dashboard
+                </Button>
+              </Link>
+            ) : (
+              <>
+                <Link href="/login">
+                  <Button variant="ghost" className="text-muted-foreground hover:text-foreground">
+                    Log in
+                  </Button>
+                </Link>
+                <Link href="/login">
+                  <Button className="bg-emerald-500 hover:bg-emerald-400 text-black font-semibold">
+                    Get Started
+                  </Button>
+                </Link>
+              </>
+            )}
           </nav>
         </div>
       </header>
@@ -98,12 +112,12 @@ export default function HomePage() {
             insights to make smarter investment decisions.
           </p>
           <div className="mt-10 flex justify-center gap-4">
-            <Link href="/login">
+            <Link href={isLoggedIn ? "/dashboard" : "/login"}>
               <Button
                 size="lg"
                 className="text-base px-8 h-12 bg-emerald-500 hover:bg-emerald-400 text-black font-bold shadow-[0_0_30px_rgba(16,185,129,0.3)] hover:shadow-[0_0_40px_rgba(16,185,129,0.4)] transition-all"
               >
-                Get Started — It&apos;s Free
+                {isLoggedIn ? "Go to Dashboard" : "Get Started — It\u2019s Free"}
               </Button>
             </Link>
           </div>
@@ -185,12 +199,12 @@ export default function HomePage() {
             <p className="text-muted-foreground mb-8 max-w-md mx-auto">
               Stop guessing. Upload your CAS and get a clear picture of your portfolio performance in minutes.
             </p>
-            <Link href="/login">
+            <Link href={isLoggedIn ? "/dashboard" : "/login"}>
               <Button
                 size="lg"
                 className="text-base px-8 h-12 bg-emerald-500 hover:bg-emerald-400 text-black font-bold shadow-[0_0_30px_rgba(16,185,129,0.3)] hover:shadow-[0_0_40px_rgba(16,185,129,0.4)] transition-all"
               >
-                Start Now — Free
+                {isLoggedIn ? "Go to Dashboard" : "Start Now — Free"}
               </Button>
             </Link>
           </div>
