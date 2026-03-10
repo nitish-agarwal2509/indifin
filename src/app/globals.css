@@ -167,6 +167,38 @@
     radial-gradient(ellipse 50% 30% at 20% 60%, rgba(99, 102, 241, 0.15), transparent);
 }
 
+/* Scroll reveal animation */
+@keyframes scroll-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.scroll-reveal {
+  animation: scroll-reveal 0.8s ease-out both;
+  animation-timeline: view();
+  animation-range: entry 0% entry 30%;
+}
+
+/* Marquee animation for trust bar */
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  animation: marquee 25s linear infinite;
+}
+
 /* Gradient text */
 .gradient-text {
   background: linear-gradient(135deg, #a78bfa 0%, #6366f1 50%, #8b5cf6 100%);

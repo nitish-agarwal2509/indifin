@@ -85,18 +85,20 @@ docs/
 - **User confirmation:** AI-parsed data is always shown to the user for review before saving to DB
 - **Vercel 10s limit:** Long AI calls must use streaming or be broken into chunks to stay within serverless function timeout
 
-## Design System — Bold Premium Fintech
+## Design System — Dark Premium Fintech (Violet/Indigo)
 
-- **Theme:** Dark-first with deep navy backgrounds, no light mode
-- **Primary accent:** Emerald green (`emerald-400`/`emerald-500`) — brand, CTAs, positive values
-- **Negative values:** Rose (`rose-400`) for losses/errors
-- **Secondary accents:** Cyan for portfolio, amber for Nifty/warnings, violet for suggestions
-- **Surfaces:** Cards use `bg-card/50` or `bg-card/80` with `backdrop-blur-xl` for glassmorphism
-- **Borders:** `border-border/50` (semi-transparent), hover to `border-emerald-500/30`
-- **Buttons:** Primary CTAs use `bg-emerald-500 text-black font-semibold` with glow shadows
-- **Typography:** Gradient text for brand name (`from-emerald-400 to-teal-300 bg-clip-text text-transparent`)
-- **Charts:** Emerald (#34d399) for portfolio, amber (#fbbf24) for Nifty; dark tooltips with slate bg
-- **Pie chart palette:** emerald, cyan, violet, amber, orange, pink
+- **Theme:** Dark-first with zinc-950 (`#09090b`) base, no light mode
+- **Primary accent:** Violet (`violet-400` / `#a78bfa`) — brand, CTAs, gradient text
+- **Negative values:** Red (`red-400`/`red-500`) for losses/errors
+- **Secondary accents:** Indigo for gradients, purple for step highlights
+- **Surfaces:** Cards use `bg-zinc-900/50` with `backdrop-blur-xl`, `glow-card` class for hover border glow
+- **Borders:** `border-zinc-800` or `border-zinc-800/50` (semi-transparent)
+- **Buttons:** Primary CTAs use `shimmer-button` class (animated violet gradient, dark text)
+- **Icons:** Lucide icons with `strokeWidth={1.5}`, muted `text-zinc-400` color
+- **Typography:** Gradient text via `.gradient-text` class (violet → indigo → purple)
+- **Animations:** `.scroll-reveal` (scroll-triggered fade-up), `.animate-marquee` (trust bar), `.shimmer-button` (CTA glow)
+- **Charts:** Violet (#a78bfa) for portfolio, indigo (#6366f1) for Nifty; dark tooltips
+- **Pie chart palette:** violet, indigo, cyan, pink, amber
 
 ## External APIs
 
