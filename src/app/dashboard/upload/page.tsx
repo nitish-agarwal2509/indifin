@@ -12,6 +12,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { FileText, Lock, CheckCircle2 } from "lucide-react";
+import { GmailImport } from "@/components/gmail-import";
 
 type UploadState =
   | "idle"
@@ -118,6 +119,14 @@ export default function UploadPage() {
     if (file) handleFile(file);
   }
 
+  // Called when Gmail import extracts text from an attachment
+  function handleGmailExtracted(text: string, pages: number, name: string) {
+    setExtractedText(text);
+    setPageCount(pages);
+    setFileName(name);
+    setState("extracted");
+  }
+
   async function handleSave() {
     setState("saving");
     try {
@@ -170,50 +179,67 @@ export default function UploadPage() {
           Upload CAS Statement
         </h1>
         <p className="text-muted-foreground mt-2">
-          Upload your PDF and we&apos;ll extract your portfolio data using AI.
+          Upload your CAS PDF or import directly from Gmail.
         </p>
       </div>
 
-      {/* Upload area */}
+      {/* Upload options — two side-by-side cards */}
       {state === "idle" || state === "error" ? (
-        <Card
-          className={`glow-card border-dashed cursor-pointer transition-all bg-zinc-900/50 border-zinc-800 ${
-            dragOver ? "border-violet-500 bg-violet-500/5" : ""
-          }`}
-          onDragOver={(e) => {
-            e.preventDefault();
-            setDragOver(true);
-          }}
-          onDragLeave={() => setDragOver(false)}
-          onDrop={handleDrop}
-          onClick={() => document.getElementById("pdf-input")?.click()}
-        >
-          <CardHeader className="text-center py-12">
-            <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-violet-500/20 to-indigo-500/20 border border-violet-500/20">
-              <FileText className="h-8 w-8 text-violet-400" />
-            </div>
-            <CardTitle className="text-xl">
-              Drag & drop your CAS PDF here
-            </CardTitle>
-            <CardDescription className="max-w-md mx-auto">
-              or click to browse. Supported: CAMS and KFintech CAS (max 10MB)
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="flex flex-col items-center gap-2 pb-8">
-            <input
-              id="pdf-input"
-              type="file"
-              accept="application/pdf"
-              className="hidden"
-              onChange={handleFileInput}
-            />
-            {error && (
-              <div className="rounded-lg bg-destructive/10 border border-destructive/20 px-4 py-2">
-                <p className="text-sm text-destructive">{error}</p>
-              </div>
-            )}
-          </CardContent>
-        </Card>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          {/* Manual PDF upload */}
+          <div className="space-y-3">
+            <h2 className="text-sm font-medium text-muted-foreground uppercase tracking-wider">
+              Option 1: Upload PDF
+            </h2>
+            <Card
+              className={`glow-card border-dashed cursor-pointer transition-all bg-zinc-900/50 border-zinc-800 ${
+                dragOver ? "border-violet-500 bg-violet-500/5" : ""
+              }`}
+              onDragOver={(e) => {
+                e.preventDefault();
+                setDragOver(true);
+              }}
+              onDragLeave={() => setDragOver(false)}
+              onDrop={handleDrop}
+              onClick={() => document.getElementById("pdf-input")?.click()}
+            >
+              <CardHeader className="text-center py-8">
+                <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-violet-500/20 to-indigo-500/20 border border-violet-500/20">
+                  <FileText className="h-8 w-8 text-violet-400" />
+                </div>
+                <CardTitle className="text-lg">
+                  Drag & drop your CAS PDF
+                </CardTitle>
+                <CardDescription className="max-w-xs mx-auto">
+                  or click to browse. Supported: CAMS, KFintech, MF Central,
+                  CDSL CAS (max 10MB)
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="flex flex-col items-center gap-2 pb-8">
+                <input
+                  id="pdf-input"
+                  type="file"
+                  accept="application/pdf"
+                  className="hidden"
+                  onChange={handleFileInput}
+                />
+                {error && (
+                  <div className="rounded-lg bg-destructive/10 border border-destructive/20 px-4 py-2">
+                    <p className="text-sm text-destructive">{error}</p>
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+          </div>
+
+          {/* Gmail import */}
+          <div className="space-y-3">
+            <h2 className="text-sm font-medium text-muted-foreground uppercase tracking-wider">
+              Option 2: Import from Gmail
+            </h2>
+            <GmailImport onExtracted={handleGmailExtracted} />
+          </div>
+        </div>
       ) : null}
 
       {/* Uploading state */}

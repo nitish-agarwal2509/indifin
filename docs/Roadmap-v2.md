@@ -4,19 +4,20 @@ Each chunk is independently testable and deployable. Chunks are ordered by depen
 
 ---
 
-## Chunk 1: DigiLocker Integration & Extensible Data Sources
+## Chunk 1: Gmail CAS Auto-Fetch
 
-**Status:** Not Started
+**Status:** In Progress
 
 | Story | Description |
 |-------|-------------|
-| US-1.1 | Build an extensible data source abstraction (`src/lib/data-sources/`) with a common interface for pulling portfolio data |
-| US-1.2 | Integrate DigiLocker API to pull CAS PDF directly (no manual upload needed) |
-| US-1.3 | Create `/dashboard/connect` page — choose data source: Upload PDF (existing) or Connect DigiLocker |
-| US-1.4 | Store source type in `portfolios` table for tracking origin of data |
-| US-1.5 | Design the abstraction to be extensible for future broker integrations (Zerodha, Groww, etc.) |
+| US-1.1 | Create `user_tokens` table in Supabase to store Google OAuth tokens with RLS |
+| US-1.2 | Modify auth callback to capture and persist Google `provider_token` and `refresh_token` |
+| US-1.3 | Add Gmail `gmail.readonly` scope via two-step consent (only when user opts in) |
+| US-1.4 | Create Gmail API routes: status check, inbox search (CAMS/KFintech/CDSL senders), PDF attachment download |
+| US-1.5 | Build Gmail import UI component with email list, import button, password handling |
+| US-1.6 | Add Gmail import as second option on upload page alongside existing manual PDF upload |
 
-**Test:** Connect DigiLocker account → CAS pulled automatically → parsed and shown in review page
+**Test:** Login → Upload page shows two options → Connect Gmail → Search finds CAS emails → Import → text extracted → Save & Continue → existing review/confirm flow works
 
 ---
 
