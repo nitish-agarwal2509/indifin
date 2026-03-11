@@ -4,8 +4,8 @@
 
 IndiFin is an Indian personal finance web app that lets users upload their mutual fund CAS (Consolidated Account Statement) PDF, uses AI to parse it, and shows portfolio performance against the Nifty 50 index with AI-powered insights.
 
-- **Docs:** See `docs/PRD.md` for full product requirements, `docs/ROADMAP.md` for implementation chunks
-- **Current status:** All chunks (1-10) complete. Deployed to production at https://indifin.vercel.app
+- **Docs:** See `docs/PRD.md` for product requirements, `docs/Roadmap-v1.md` (complete), `docs/Roadmap-v2.md` (in progress), `docs/Roadmap-v3.md` (planned)
+- **Current status:** V1 complete and deployed at https://indifin.vercel.app. V2 in progress on `v2` branch.
 
 ## Tech Stack
 
@@ -15,6 +15,7 @@ IndiFin is an Indian personal finance web app that lets users upload their mutua
 - **AI:** Google Gemini 2.5 Flash Lite (free tier)
 - **Charts:** Recharts
 - **PDF Parsing:** unpdf (server-side text extraction)
+- **Gmail API:** googleapis (Gmail CAS auto-fetch, V2)
 - **Deployment:** Vercel (free tier)
 
 ## Project Structure
@@ -32,12 +33,13 @@ src/
 │   └── dashboard/
 │       ├── layout.tsx      # Dashboard shell (navbar + user avatar)
 │       ├── page.tsx        # Portfolio overview
-│       ├── upload/page.tsx # PDF upload flow
+│       ├── upload/page.tsx # PDF upload + Gmail import flow
 │       ├── review/page.tsx # AI-parsed data review + confirm
 │       ├── compare/page.tsx# Portfolio vs Nifty 50
 │       └── insights/page.tsx # AI insights
 ├── components/
 │   ├── ui/                 # shadcn/ui components (auto-generated)
+│   ├── gmail-import.tsx    # Gmail CAS import UI (V2)
 │   ├── user-nav.tsx        # User avatar + logout (client component)
 │   ├── mobile-nav.tsx      # Mobile hamburger menu (client component)
 │   └── spinner.tsx         # Loading spinner component
@@ -47,6 +49,10 @@ src/
 │   │   ├── client.ts       # Browser Supabase client
 │   │   ├── server.ts       # Server Supabase client (cookies-based)
 │   │   └── middleware.ts    # Auth session refresh + route protection
+│   ├── gmail/              # Gmail API integration (V2)
+│   │   ├── auth.ts         # Client-side Gmail OAuth helper
+│   │   ├── client.ts       # Server-side Gmail API client factory
+│   │   └── search.ts       # CAS sender list, search query, types
 │   ├── gemini.ts           # Gemini AI client initialization
 │   ├── cas-parser.ts       # CAS text → structured JSON via Gemini
 │   ├── xirr.ts             # XIRR calculation (Newton-Raphson method)
@@ -56,7 +62,11 @@ src/
 ├── middleware.ts            # Next.js middleware (routes to supabase/middleware)
 docs/
 ├── PRD.md                  # Product requirements document
-└── ROADMAP.md              # Implementation roadmap with user stories
+├── Roadmap-v1.md           # V1 roadmap (complete)
+├── Roadmap-v2.md           # V2 roadmap (in progress)
+└── Roadmap-v3.md           # V3 roadmap (planned)
+supabase/
+└── migrations/             # SQL migration files (001-003)
 ```
 
 ## Commands
@@ -75,7 +85,7 @@ docs/
 - **Server vs Client:** Default to Server Components. Add `"use client"` only when needed (event handlers, hooks, browser APIs)
 - **Data fetching:** Use Server Components for data fetching where possible. Use API routes (`src/app/api/`) for mutations and external API calls
 - **TypeScript:** Strict mode enabled. Define types/interfaces in the same file or in a shared `types.ts` when reused across 3+ files
-- **Environment variables:** Use `.env.local` for secrets (Supabase keys, Gemini API key). Prefix with `NEXT_PUBLIC_` only for client-side vars
+- **Environment variables:** Use `.env.local` for secrets (Supabase keys, Gemini API key, Google OAuth credentials). Prefix with `NEXT_PUBLIC_` only for client-side vars
 
 ## Key Design Decisions
 
@@ -107,3 +117,4 @@ docs/
 - **Historical NAV:** mfapi.in REST API (no auth, per-scheme historical data)
 - **Nifty 50:** Yahoo Finance `^NSEI` ticker
 - **AI:** Google Gemini 2.5 Flash Lite via `@google/generative-ai` npm package
+- **Gmail API:** `googleapis` npm package with `gmail.readonly` scope (V2 — CAS auto-fetch from inbox)
